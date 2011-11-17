@@ -1,4 +1,4 @@
-Vehicle Testing with CoAP infrastructre
+Vehicle Testing with CoAP infrastructure 
 =======================================
 
 TEST README

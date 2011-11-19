@@ -1,0 +1,55 @@
+\documentclass[12pt,a4paper,titlepage]{article}
+
+\usepackage[utf8]{inputenc}
+% Set level to number headings on
+% part = -1
+% chapter = 0
+% section = 1
+% subsection = 2
+% subsubsection = 3
+% paragraph = 4
+% subparagraph = 5
+\setcounter{secnumdepth}{0}
+
+% Table of contents level if added
+\setcounter{tocdepth}{2}
+
+% Header and footer specifications
+%\usepackage{lastpage}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\headheight = 28pt
+\lhead{TODO - HEADER\\
+\texttt{Something here aswell?}}
+%\rhead{\thepage\ of \pageref{LastPage}\\} // Requires LastPage latex module
+\rhead{} % Remove to enable Section name in the header
+\cfoot{}
+\rfoot{}
+
+% Images
+\usepackage{graphicx}
+
+\begin{document}
+
+% First page title
+\title{Sensor data aggregation through CoAP} 
+\author{
+Christoffer Holmstedt, Ludwig Thusfjell, Sophia Bergendahl, \\
+Kristoffer Svensson, Marcus Rådman, William Gustafsson och \\
+Edvin Bruun
+% \texttt{christoffer.holmstedt@gmail.com} \\
+}
+\maketitle
+
+%Start page numbering from first page
+%\thispagestyle{empty}
+%\end{titlepage}
+\setcounter{page}{2}
+
+%Include the different parts in the lab report
+%\include{icmp}
+%\include{ethernet}
+%\include{dhcp}
+
+\end{document}

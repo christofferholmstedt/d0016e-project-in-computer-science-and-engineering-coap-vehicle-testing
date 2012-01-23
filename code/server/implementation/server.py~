@@ -31,6 +31,8 @@ address_family = socket.AF_INET
 #   should be supported.
 discovery_addresses = None
 
+#REALLY UGLY
+temperatureVar = '';
 MULLE_IP = ("130.240.98.93", 61616);
 
 try:
@@ -59,6 +61,57 @@ ep.bind(bind_addr)
 if discovery_addresses is not None:
     for da_fqdn in discovery_addresses.split(','):
         ep.bindDiscovery(da_fqdn)
+       
+class DerpService (coapy.link.LinkValue):
+    __derpyString = "ASDASDASDASDASD"
+
+    def process (self, rx_record):
+        stringy = self.__derpyString
+        msg = coapy.connection.Message(coapy.connection.Message.ACK, code=coapy.OK, payload='%s' % (stringy,))
+        rx_record.ack(msg)
+        
+class TemperatureService (coapy.link.LinkValue):
+    def process (self, rx_record):
+        msg = coapy.connection.Message(coapy.connection.Message.ACK, code=coapy.OK, uri_path="temp", payload='%s' % (temperatureVar,))
+        rx_record.ack(msg)
+
+class FetchTemperatureService (coapy.link.LinkValue):
+    def process (self, rx_record):
+        msg = coapy.connection.Message(coapy.connection.Message.CON, code=coapy.GET, uri_path="temperature")
+        remotes = MULLE_IP
+        ep.send(msg, remotes)
+        rx_record.ack(msg)
+        
+class ShowTempService (coapy.link.LinkValue):
+    def process (self, rx_record):
+        msg = coapy.connection.Message(coapy.connection.Message.ACK, code=coapy.OK, uri_path="temp", payload='%f' % (temperatureVar,))
+        rx_record.ack(msg)
+
+class SubTemperatureService (coapy.link.LinkValue):
+    def process (self, rx_record):
+        msg = coapy.connection.Message(coapy.connection.Message.CON, code=coapy.GET, uri_path="subtemperature")
+        remotes = MULLE_IP
+        ep.send(msg, remotes)
+        
+class AsyncCounterService (coapy.link.LinkValue):
+    __counter = 0
+
+    def process (self, rx_record):
+        rx_record.ack()
+        ctr = self.__counter
+        self.__counter += 1
+        msg = coapy.connection.Message(coapy.connection.Message.CON, code=coapy.OK, payload='%d delayed' % (ctr,))
+        for opt in rx_record.message.options:
+            msg.addOption(opt)
+        rx_record.end_point.send(msg, rx_record.remote)
+
+class UptimeService (coapy.link.LinkValue):
+    __started = time.time()
+
+    def process (self, rx_record):
+        uptime = time.time() - self.__started
+        msg = coapy.connection.Message(coapy.connection.Message.ACK, code=coapy.OK, payload='%g' % (uptime,))
+        rx_record.ack(msg)
 
 class ResourceService (coapy.link.LinkValue):
 
@@ -80,14 +133,22 @@ class ResourceService (coapy.link.LinkValue):
         rx_record.ack(msg)
 
 ResServices = ResourceService()
-
+#~ services.add_service(CounterService('counter'))
+#~ services.add_service(UptimeService('uptime'))
+#~ services.add_service(AsyncCounterService('async'))
+#~ services.add_service(DerpService('derp'))
+#~ services.add_service(TemperatureService('temperature'))
+#~ services.add_service(FetchTemperatureService('fetchtemperature'))
+#~ services.add_service(SubTemperatureService('subtemperature'))
 for service in os.listdir(os.path.join('services')):
 	if service == '__init__.py' or service[-3:] != '.py':
 		continue
 	serv = service[:-3]
 	print serv
-	# the chained getattr corresponds to writing services.serv.serv
-	ResServices.add_service(getattr(getattr(services, serv), serv)(serv))		
+	ResServices.add_service(services.serv.serv(serv))		
+
+
+
 
 while True:
     rxr = ep.process(10000)

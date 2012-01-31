@@ -65,7 +65,7 @@ class ResourceService (coapy.link.LinkValue):
     __services = None
 
     def __init__ (self, *args, **kw):
-        super(ResourceService, self).__init__('.well-known/r', ct=[coapy.media_types_rev.get('application/link-format')])
+        super(ResourceService, self).__init__('.well-known', ct=[coapy.media_types_rev.get('application/link-format')])
         self.__services = { self.uri : self }
 
     def add_service (self, service):

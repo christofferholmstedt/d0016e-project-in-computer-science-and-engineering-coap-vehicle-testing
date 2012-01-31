@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, You rock!</string>
+    <string name="app_name">The Android Tab Activity</string>
+	<string name="button1">Add</string>
+	<string name="item1">lol, text</string> 
+	<string name="no_data">lol, ingen data</string> 
+	<string name="data">lol, jag har data</string> 
+	
+
+    
+</resources>

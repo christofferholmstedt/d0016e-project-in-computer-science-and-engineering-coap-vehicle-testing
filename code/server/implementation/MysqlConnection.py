@@ -9,7 +9,7 @@ import time
 # Future improvement to project may include 
 # switch some ORM library such as "Storm".
 ################################################
-class MySQL:
+class MysqlConnection:
     ######################################################
     # Constructor opens a connetion to the database.
     ######################################################
@@ -73,7 +73,7 @@ class MySQL:
 # Test code to test the MySQL class during 
 # development.
 #################################################
-#A = MySQL()
+#A = MysqlConnection()
 
 #####
 # Simple test function to see that it's up and running.

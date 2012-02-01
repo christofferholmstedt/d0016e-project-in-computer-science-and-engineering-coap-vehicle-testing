@@ -59,41 +59,39 @@ import android.widget.TextView;
 
 //------------------------------------
 
-
 /*public class ServerActivity extends ListActivity {
 
-	static final String[] MONSTERS = new String[] { "Zombie", "Vampire",
-			"Warewulf", "Blob" };
+ static final String[] MONSTERS = new String[] { "Zombie", "Vampire",
+ "Warewulf", "Blob" };
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+ @Override
+ public void onCreate(Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
 
-		setListAdapter(new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, MONSTERS));
+ setListAdapter(new ArrayAdapter<String>(this,
+ android.R.layout.simple_list_item_1, MONSTERS));
 
-		ListView lv = getListView(); // Grabs the ListView widget that is tied
-		// to the Activity.
-		lv.setTextFilterEnabled(true); // Enable the Text Filter. Typing when
-		// this view has focus will filter the
-		// children to match the users input
+ ListView lv = getListView(); // Grabs the ListView widget that is tied
+ // to the Activity.
+ lv.setTextFilterEnabled(true); // Enable the Text Filter. Typing when
+ // this view has focus will filter the
+ // children to match the users input
 
-		lv.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+ lv.setOnItemClickListener(new OnItemClickListener() {
+ public void onItemClick(AdapterView<?> parent, View view,
+ int position, long id) {
 
-				Toast.makeText(getApplicationContext(),
-						((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+ Toast.makeText(getApplicationContext(),
+ ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
 
-			}
-		});
+ }
+ });
 
-	}
-}
-*/
+ }
+ }
+ */
 
 //--------------------------------------------
-
 
 public class ServerActivity extends ListActivity {
 	private LayoutInflater mInflater;
@@ -103,23 +101,32 @@ public class ServerActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		setContentView(R.layout.list_gui); //TODO: important
-		
+
+		setContentView(R.layout.list_gui);
+
 		mInflater = (LayoutInflater) getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 		data = new Vector<RowData>();
-		RowData rd = new RowData("item1", "description1");
+		
+
+		
+		RowData rd = new RowData("item1", "description1", "hej");
 		data.add(rd);
-		rd = new RowData("item2", "description2");
+		rd = new RowData("item 2", "description2", "lol");
 		data.add(rd);
-		rd = new RowData("item2", "description3");
+		rd = new RowData("item2", "description3", "tjo");
 		data.add(rd);
 
-		CustomAdapter adapter = new CustomAdapter(this, R.layout.custom_row, R.id.item, data); //TODO: kolla
+		CustomAdapter adapter = new CustomAdapter(this, R.layout.custom_row,
+				R.id.item, data); // TODO: kolla
 		setListAdapter(adapter);
 		getListView().setTextFilterEnabled(true);
+
 	}
 
+//	public void onTableRowClick(TableRow parent, View v, long id){
+//		
+//	}
+	
 	public void onListItemClick(ListView parent, View v, int position, long id) {
 		CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
 		RowData row = adapter.getItem(position);
@@ -136,17 +143,20 @@ public class ServerActivity extends ListActivity {
 	private class RowData {
 		protected String mItem;
 		protected String mDescription;
+		protected String mlol;
 
-		RowData(String item, String description) {
+		RowData(String item, String description, String lol) {
 			mItem = item;
 			mDescription = description;
+			mlol = lol;
 		}
 
 		@Override
 		public String toString() {
-			return mItem + " " + mDescription;
+			return mItem + " " + mDescription + " " + mlol;
 		}
 	}
+	
 
 	private class CustomAdapter extends ArrayAdapter<RowData> {
 
@@ -163,6 +173,7 @@ public class ServerActivity extends ListActivity {
 			// widgets displayed by each item in your list
 			TextView item = null;
 			TextView description = null;
+			TextView lol = null;
 
 			// data from your adapter
 			RowData rowData = getItem(position);
@@ -181,6 +192,9 @@ public class ServerActivity extends ListActivity {
 			description = holder.getDescription();
 			description.setText(rowData.mDescription);
 
+			lol = holder.getlol();
+			lol.setText(rowData.mlol);
+
 			return convertView;
 		}
 	}
@@ -193,6 +207,7 @@ public class ServerActivity extends ListActivity {
 		private View mRow;
 		private TextView description = null;
 		private TextView item = null;
+		private TextView lol = null;
 
 		public ViewHolder(View row) {
 			mRow = row;
@@ -210,6 +225,13 @@ public class ServerActivity extends ListActivity {
 				item = (TextView) mRow.findViewById(R.id.item);
 			}
 			return item;
+		}
+
+		public TextView getlol() {
+			if (null == lol) {
+				lol = (TextView) mRow.findViewById(R.id.lol);
+			}
+			return lol;
 		}
 	}
 }

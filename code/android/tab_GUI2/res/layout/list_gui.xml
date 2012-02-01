@@ -1,9 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- Kan ersättas med ngt mer passande -->
+
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#333333"
+        android:gravity="center" 
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ful_add_knapp" />
+
+        <!-- relativ layout för att flytta, eller hårdkoda med margin -->
+
+        <TextView
+            android:id="@+id/Addtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="30dp"
+            android:text="@string/add"
+            android:textSize="20dp" />
+
+        <!--
+               <Button
+                android:id="@+id/addbutton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:clickable="true"
+                android:text="@string/add" />
+        -->
+
+    </TableRow>
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#000000"
+        android:drawSelectorOnTop="false" />
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#000000"
+        android:text="@string/no_data" />
+
+</LinearLayout><!--
+<?xml version="1.0" encoding="utf-8"?>
  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
          android:orientation="vertical"
          android:layout_width="match_parent"
          android:layout_height="match_parent"
          >
+
+     
 
      <ListView android:id="@android:id/list"
                android:layout_width="match_parent"
@@ -18,32 +80,4 @@
                android:background="#000000"
                android:text="@string/no_data"/>
  </LinearLayout>
-
-
-
-<!-- <?xml version="1.0" encoding="utf-8"?>
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/list"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
-    
-
-</ListView> -->
-
-<!-- <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <ListView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/fulllist"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-</LinearLayout> -->
-
-
- 
+-->

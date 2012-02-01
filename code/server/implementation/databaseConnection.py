@@ -40,6 +40,16 @@ class MySQL:
         return returnValue
 
     ######################################################
+    # fetchLastRow, so I can test "insert"-function
+    ######################################################
+    def fetchLastRow(self):
+        returnValue = []
+        self.cursor.execute ("SELECT id, type, value, datetime, host FROM data ORDER BY id DESC LIMIT 1")
+        row = self.cursor.fetchone()
+        returnValue.append(row)
+        return returnValue
+
+    ######################################################
     # Test function to see if the 
     # class has loaded properly
     ######################################################
@@ -54,14 +64,19 @@ class MySQL:
 A = MySQL()
 
 ## Simple test function to see that it's up and running.
+print "\n=== Test function ==="
 A.printValue()
 
 ## TODO: Fetch the last row
 ## This is to be able to test the "Insert one row" function.
+print "\n=== Last Row ==="
+lastRow = A.fetchLastRow()
+print lastRow
 
 ## TODO: Insert one row into database
 
 ## Test the fetchAllData function.
+print "\n=== Fetch all data ==="
 rows = A.fetchAllData()
 for row in rows:
     # Print entire tuple (one row from the table in the database).

@@ -1,4 +1,5 @@
 import MySQLdb
+import time
 
 ################################################
 # @author Christoffer Holmstedt
@@ -50,6 +51,17 @@ class MySQL:
         return returnValue
 
     ######################################################
+    # insertRow, function to insert one row of data 
+    ######################################################
+    def insertRow(self, type, value, host):
+        datetime = time.strftime('%Y-%m-%d %H:%M:%S')
+        sql = "INSERT INTO data (type, value, datetime, host) values ('" + type + "','" + value + "','" + datetime + "','" + host + "')"
+        self.cursor.execute(sql)
+        self.conn.commit()
+
+        ##self.cursor.execute ("SELECT id, type, value, datetime, host FROM data ORDER BY id DESC LIMIT 1")
+    
+    ######################################################
     # Test function to see if the 
     # class has loaded properly
     ######################################################
@@ -61,25 +73,41 @@ class MySQL:
 # Test code to test the MySQL class during 
 # development.
 #################################################
-A = MySQL()
+#A = MySQL()
 
-## Simple test function to see that it's up and running.
-print "\n=== Test function ==="
-A.printValue()
+#####
+# Simple test function to see that it's up and running.
+#####
+#print "\n=== Test function ==="
+#A.printValue()
 
-## TODO: Fetch the last row
-## This is to be able to test the "Insert one row" function.
-print "\n=== Last Row ==="
-lastRow = A.fetchLastRow()
-print lastRow
+#####
+# This is to be able to test the "Insert one row" function.
+#####
+#print "\n=== Last Row ==="
+#lastRow = A.fetchLastRow()
+#print lastRow
 
-## TODO: Insert one row into database
+#####
+# Insert one row into database
+#####
+#print "\n=== Inserting row ===" 
+#A.insertRow("pythonTestType", "pythonTestValue", "pythonTestHost")
 
-## Test the fetchAllData function.
-print "\n=== Fetch all data ==="
-rows = A.fetchAllData()
-for row in rows:
+#####
+# This is to be able to test the "Insert one row" function.
+#####
+#print "\n=== Last Row (After insert) ==="
+#lastRow = A.fetchLastRow()
+#print lastRow
+
+#####
+# Test the fetchAllData function.
+#####
+#print "\n=== Fetch all data ==="
+#rows = A.fetchAllData()
+#for row in rows:
     # Print entire tuple (one row from the table in the database).
-    print row
+#    print row
     # Print "one column" from the row.
-    print row[0], row[1], row[2]
+#    print row[0], row[1], row[2]

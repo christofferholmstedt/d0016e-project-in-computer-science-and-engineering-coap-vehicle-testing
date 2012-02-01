@@ -87,7 +87,7 @@ for service in os.listdir(os.path.join('services')):
 	serv = service[:-3]
 	print serv
 	# the chained getattr corresponds to writing services.serv.serv
-	ResServices.add_service(getattr(getattr(services, serv), serv)(serv))		
+	ResServices.add_service(getattr(getattr(services, serv), serv)(serv.lower()))		
 
 while True:
     rxr = ep.process(10000)

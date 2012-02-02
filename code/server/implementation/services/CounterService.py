@@ -17,7 +17,7 @@ Class CounterService
     :__counter: Internal counter for this service 
 '''
 class CounterService (coapy.link.LinkValue):
-    __counter = 0
+    __counter = 1
 
     def process (self, rx_record):
         ctr = self.__counter
@@ -32,7 +32,7 @@ class CounterService (coapy.link.LinkValue):
         # rx_record.remote[1]   Port used by remote host
         #####
         mysql = MysqlConnection()
-        mysql.insertRow("CounterService",`self.__counter`,rx_record.remote[0])
+        mysql.insertRow("CounterService",`ctr`,rx_record.remote[0])
 
         ####
         # Send CoAP response to client

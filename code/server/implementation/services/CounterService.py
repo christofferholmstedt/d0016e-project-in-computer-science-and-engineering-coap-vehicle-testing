@@ -7,6 +7,15 @@ import socket
 import getopt
 from MysqlConnection import MysqlConnection 
 
+'''
+Class CounterService
+    Simple service implementation that increases a counter for each
+    request to this service. This service shows how to use the MySQL
+    connection library aswell to store information to our data-table
+    for persistent logging.
+
+    :__counter: Internal counter for this service 
+'''
 class CounterService (coapy.link.LinkValue):
     __counter = 0
 
@@ -16,11 +25,14 @@ class CounterService (coapy.link.LinkValue):
 
         #####
         # Store information to database
-        # All data are stored as strings so if it's a integer that
+        # All data is stored as strings so if it's an integer that
         # is to be stored use "`" around the integer.
+        # 
+        # rx_record.remote[0]   IP-address of remote host
+        # rx_record.remote[1]   Port used by remote host
         #####
         mysql = MysqlConnection()
-        mysql.insertRow("counter",`self.__counter`,"hostFromCounterRequest")
+        mysql.insertRow("CounterService",`self.__counter`,rx_record.remote[0])
 
         ####
         # Send CoAP response to client

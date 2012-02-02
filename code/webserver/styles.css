@@ -1,0 +1,43 @@
+#all{
+	border: 5px ridge #292929;
+	width: 880px;
+	height: 850px;
+	margin-left: auto;
+	margin-right: auto;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px; corner-radius:
+	box-shadow: 10px 10px 5px #333333;
+	-moz-box-shadow: 10px 10px 5px #333333;
+	-webkit-box-shadow: 10px 10px 5px #333333;
+}
+#head {
+	background-color: #8B3A62;
+	height: 105px;
+	text-align: center;
+	border-bottom: 5px ridge #292929;
+	overflow: auto;
+}
+#nav {
+	background-color: #EE6AA7;
+	float: left;
+	width: 205px;
+	height: 645px;
+	border-right: 5px ridge #292929;
+	border-bottom: 5px ridge #292929;
+	overflow: auto;
+}
+#main {
+	background-color: #CD6090;
+	float: left;
+	width: 670px;
+	height: 645px;
+	overflow: auto;
+	border-bottom: 5px ridge #292929;
+}
+#foot {
+	background-color: #8B3A62;
+	clear: both;
+	height: 90px;
+	overflow: auto;
+	float: top;
+}

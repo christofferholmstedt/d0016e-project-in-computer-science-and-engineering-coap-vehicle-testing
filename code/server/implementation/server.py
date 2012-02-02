@@ -16,6 +16,12 @@ import time
 import socket
 import getopt
 
+'''
+Set this to True to show debug messages.
+:DEBUG: = True|False
+'''
+DEBUG = True 
+
 # Import services from the services folder:
 import services
 # They are accessed through 'services.filename'
@@ -82,19 +88,23 @@ class ResourceService (coapy.link.LinkValue):
 ResServices = ResourceService()
 
 for service in os.listdir(os.path.join('services')):
-	if service == '__init__.py' or service[-3:] != '.py':
+    if service == '__init__.py' or service[-3:] != '.py':
 		continue
-	serv = service[:-3]
-	print serv
+    serv = service[:-3]
+    if DEBUG:
+        print serv
 	# the chained getattr corresponds to writing services.serv.serv
-	ResServices.add_service(getattr(getattr(services, serv), serv)(serv.lower()))		
+    ResServices.add_service(getattr(getattr(services, serv), serv)(serv.lower()))		
 
+print "\n\nCoAP server started.\n\n"
 while True:
     rxr = ep.process(10000)
     if rxr is None:
-        print 'No activity'
+        if DEBUG == True:
+            print 'No activity'
         continue
-    print 'Remote: %s, Message: %s' % (rxr.remote, rxr.message)
+    if DEBUG == True:
+        print 'Remote: %s, Message: %s' % (rxr.remote, rxr.message)
     msg = rxr.message
     if coapy.OK == msg.code:
         temperatureVar = msg.payload
@@ -103,7 +113,8 @@ while True:
     if uri is None:
         continue
     service = ResServices.lookup(uri.value)
-    print 'Lookup %s got %s' % (uri, service)
+    if DEBUG == True:
+        print 'Lookup %s got %s' % (uri, service)
     if service is None:
         rxr.reset()
         continue

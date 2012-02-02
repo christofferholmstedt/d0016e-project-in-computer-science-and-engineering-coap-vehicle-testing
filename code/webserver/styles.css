@@ -1,7 +1,7 @@
 #all{
 	border: 5px ridge #292929;
-	width: 880px;
-	height: 850px;
+	width: 1080px;
+	height: 1050px;
 	margin-left: auto;
 	margin-right: auto;
 	-moz-border-radius: 10px;
@@ -21,7 +21,7 @@
 	background-color: #EE6AA7;
 	float: left;
 	width: 205px;
-	height: 645px;
+	height: 845px;
 	border-right: 5px ridge #292929;
 	border-bottom: 5px ridge #292929;
 	overflow: auto;
@@ -29,8 +29,8 @@
 #main {
 	background-color: #CD6090;
 	float: left;
-	width: 670px;
-	height: 645px;
+	width: 870px;
+	height: 845px;
 	overflow: auto;
 	border-bottom: 5px ridge #292929;
 }

@@ -1,4 +1,4 @@
-package android.coap;
+package se.willliamgustafsson.tab_gui2;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -9,6 +9,7 @@ import android.jcoap.interfaces.CoapChannelManager;
 import android.jcoap.interfaces.CoapClient;
 import android.jcoap.interfaces.CoapMessage;
 import android.jcoap.messages.CoapMessageCode.MessageCode;
+import android.os.Handler;
 
 public class MessageHandler implements CoapClient {
 	//private static final String SERVER_ADDRESS_default = "mulle.csproject.org";
@@ -17,7 +18,7 @@ public class MessageHandler implements CoapClient {
 	CoapChannelManager channelManager = null;
 	CoapChannel clientChannel = null;
 	//temp tillsvidare
-	public String temp;
+	public byte[] temp;
 /**
  * Builds our custom CoAP message handler, no idea what it actually does :)
  */
@@ -62,11 +63,9 @@ public class MessageHandler implements CoapClient {
 		// channelManager = DefaultCoapChannelManager.getInstance();
 
 		try {
-			clientChannel = channelManager.connect(this,
-					InetAddress.getByName(SERVER_ADDRESS), PORT);
+			clientChannel = channelManager.connect(this, InetAddress.getByName(SERVER_ADDRESS), PORT);
 			CoapMessage coapRequest = clientChannel.createRequest(true,	MessageCode.GET);
-			String option = "temperature";
-			coapRequest.getHeader().addOption(9, option.getBytes());
+			coapRequest.getHeader().addOption(9, Options.getBytes());
 			coapRequest.setPayload(message);
 			clientChannel.sendMessage(coapRequest);
 			System.out.println("Sent Request");
@@ -78,36 +77,13 @@ public class MessageHandler implements CoapClient {
 
 	}
 
-//	public void runTestClient() {
-//		try {
-//			clientChannel = channelManager.connect(this,
-//					InetAddress.getByName(SERVER_ADDRESS), PORT);
-//			CoapMessage coapRequest = clientChannel.createRequest(true,
-//					MessageCode.GET);
-//			String option = "temperature";
-//			coapRequest.getHeader().addOption(9, option.getBytes());
-//			coapRequest.setPayload("Polly vill ha kex");
-//			clientChannel.sendMessage(coapRequest);
-//
-//			clientChannel.sendMessage(coapRequest);
-//			System.out.println("Sent Request");
-//		} catch (UnknownHostException e) {
-//			// TODO Auto-generated catch block
-//			for (int i = 0; i < 10; i++) {
-//
-//				System.out.println("UnknownHostException");
-//
-//			}
-//
-//			e.printStackTrace();
-//		}
-//	}
-
 	@Override
 	public void onResponse(CoapChannel channel, CoapMessage response) {
 		System.out.println("Received response");
-		System.out.println(response.getPayload());
-		temp= response.getPayload().toString();
+		System.out.println("HEJ DETTA ÄR INDATA: "+response.getPayload().toString());
+		temp= response.getPayload();
+		//Handler srvActivity = new Handler();
+		
 		
 		//TODO: Figure out where this is supposed to return
 		//return response.getPayload().toString();

@@ -5,8 +5,18 @@
     android:versionName="1.0" >
 
     <uses-sdk android:minSdkVersion="10" />
-     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- PERMISSIONS -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- LIBRARIES -->
+<!--     <uses-library android:name="android.coap" />
+    
+    <uses-library android:name="android.jcoap" />
+    <uses-library android:name="android.jcoap.connection" />
+    <uses-library android:name="android.jcoap.interfaces" />
+    <uses-library android:name="android.jcoap.messages" />
+    <uses-library android:name="android.jcoap.tools" /> -->
+        
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >

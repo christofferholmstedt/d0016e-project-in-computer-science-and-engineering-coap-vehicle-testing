@@ -3,12 +3,19 @@
 
     <string name="hello">Hello World, You rock!</string>
     <string name="app_name">The Android Tab Activity</string>
+    
 	<string name="button1">Add</string>
+	
 	<string name="item1">lol, text</string> 
+	
 	<string name="no_data">lol, ingen data</string> 
 	<string name="data">lol, jag har data</string> 
-	<string name="add">add</string>
 	
-
+	<string name="add">add</string>
+	<string name="fulknapp">ful +knapp</string>
+	
+	<!-- Edittext defaults -->
+	<string name="hostadress">mulle.csproject.org</string>
+	<string name="hostname">Server name</string>
     
 </resources>

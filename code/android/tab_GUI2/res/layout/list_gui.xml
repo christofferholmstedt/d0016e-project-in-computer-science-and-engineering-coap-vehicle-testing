@@ -12,10 +12,11 @@
         android:layout_height="50dp"
         android:background="#333333"
         android:gravity="center" 
-        android:clickable="true">
+        android:clickable="True">
 
         <ImageView
             android:id="@+id/imageView1"
+            android:contentDescription="@string/fulknapp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ful_add_knapp" />
@@ -30,16 +31,6 @@
             android:paddingLeft="30dp"
             android:text="@string/add"
             android:textSize="20dp" />
-
-        <!--
-               <Button
-                android:id="@+id/addbutton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:clickable="true"
-                android:text="@string/add" />
-        -->
-
     </TableRow>
 
     <ListView
@@ -48,7 +39,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="#000000"
-        android:drawSelectorOnTop="false" />
+        android:drawSelectorOnTop="false" >
+    </ListView>
 
     <TextView
         android:id="@android:id/empty"

@@ -30,17 +30,16 @@
 % Images
 \usepackage{graphicx}
 
-\begin{document}
+%%%%%%%%%%%%%%%%%%
+% Custom new commands
+%%%%%%%%%%%%%%%%%%
 
-% First page title
-\title{Sensor data aggregation through CoAP} 
-\author{
-Christoffer Holmstedt, Ludwig Thusfjell, Sophia Bergendahl, \\
-Kristoffer Svensson, Marcus Rådman, William Gustafsson och \\
-Edvin Bruun
-% \texttt{christoffer.holmstedt@gmail.com} \\
-}
-\maketitle
+% From http://en.wikibooks.org/wiki/LaTeX/Title_Creation
+% Used for the title page
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+% Start of our document
+\begin{document}
 
 %Start page numbering from first page
 %\thispagestyle{empty}
@@ -48,9 +47,10 @@ Edvin Bruun
 \setcounter{page}{2}
 
 %Include the different parts in the lab report
-\include{projektbeskrivning}
-\include{resultatrapport}
-\include{arbetsrapport}
-\include{referensrapport}
+\include{titlePage}
+\include{projectDescription}
+\include{ourResults}
+\include{informationAboutOurProject}
+\include{howToContinueOnOurWork}
 
 \end{document}

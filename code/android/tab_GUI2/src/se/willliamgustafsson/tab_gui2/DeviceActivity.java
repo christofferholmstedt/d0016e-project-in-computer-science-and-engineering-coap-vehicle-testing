@@ -1,145 +1,296 @@
+
+
 package se.willliamgustafsson.tab_gui2;
 
+import java.lang.reflect.Constructor;
+import java.util.List;
+import java.util.Vector;
+
 import android.app.Activity;
+import android.app.ListActivity;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.ListView;
 import android.widget.TextView;
 
-public class DeviceActivity extends Activity{
+/**
+ * @author Gurr3
+ */
+public class DeviceActivity extends ListActivity {
+	private LayoutInflater mInflater;
+	private Vector<RowData> data;
+	CustomAdapter adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		TextView textview = new TextView(this);
-		textview.setText("This is the Device tab");
-		setContentView(textview);
-		
+		setContentView(R.layout.list_gui_activity);
 
-//		final Button button = (Button) findViewById(R.id.button1);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//            	Toast.makeText(getApplicationContext(), "hej", Toast.LENGTH_SHORT);
-//                // Perform action on click
-//            }
-//        });
+		mInflater = (LayoutInflater) getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+		data = new Vector<RowData>();
+
+		/*TODO:  dividers to separate the devices? as:
+
+		 * -----------------
+		 * Server1               <-- Divider
+		 * -----------------
+		 * service 1             <-- list item
+		 * _________________
+		 * service 2             <-- list item
+		 * _________________
+		 */
 		
+		//ADDING RANDOM STUFF TO GET A VIEW OF HOW IT WILL LOOK
+		RowData_IsOn rdio = new RowData_IsOn("service 1", "device 1");
+		data.add(rdio);
+		rdio = new RowData_IsOn("service 2", "device 1");
+		data.add(rdio);
+
+		RowData_GetValue rdgv = new RowData_GetValue("service 3", "device 1");
+		data.add(rdgv);
+		rdgv = new RowData_GetValue("service 1", "device 2");
+		data.add(rdgv);
+
+		rdio = new RowData_IsOn("service 2", "device 2");
+		data.add(rdio);
+		//END RANDOM STUFF ADDING
+
+		adapter = new CustomAdapter(this, R.layout.item_checkbox, R.id.checkbox_text, data);
+
+		setListAdapter(adapter);
+		getListView().setTextFilterEnabled(true);
+
+
+	}
+	/**
+	 * @author Gurr3
+	 * When clicking on the list, this code runs. Planned use is to call the active Rowdata's onClick method.
+	 */
+	public void onListItemClick(ListView parent, View v, int position, long id) {
+		CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
+		RowData row = adapter.getItem(position);
+
+	}
+
+	/*
+	 * ------------------------------------------------------------------------------------------------------------------- 
+	 * ---------------------------------WARNING: STUFF UNDER THIS LINE CONTAINS CODE--------------------------------------
+	 * -------------------------------------------------------------------------------------------------------------------
+	 */
+
+
+	/*
+	 * ***********************************
+	 * ********* ROWDATA TYPES************
+	 * ***********************************
+	 */
+
+	/**
+	 * @author Gurr3
+	 * Interface to be extended when creating an Item
+	 */
+	private interface RowData { //TODO: make abstract instead of interface
+		//		String mServiceName;
+		//		String mDeviceName;
+		//		String mType;
+		//		int mValue;
+		//
+		//		mServiceName = servicename;
+		//		mDeviceName = devicename;
+		//		mType = type;
+		//		mValue = Value;
+
+		//		RowData(String devicename, String servicename, String type , int Value);
+		public String getServiceName();
+		//	public void setServiceName(String servicename);
+		public String getDeviceName();
+		//	public void setDeviceName(String devicename);
+		public String getType();
+		public int getlocalValue();
+		public void setlocalValue(int Value);
+		public void onClick();		
+		public void Update(int Value);		
+		public void Send();
+		public void onCreate(View row);
+		public int getviewtype();
+	}
+
+	/**
+	 * @author Gurr3
+	 */
+	private class RowData_IsOn implements RowData {
+		protected String mServiceName;
+		protected String mDeviceName;
+		protected String mType = "IsOn";
+
+		protected int mValue;
+
+		protected View mRow = null;
+		private int mViewType = R.layout.item_checkbox;
+		private TextView Servicename = null;
+		private CheckBox thebox = null;
+
+		public RowData_IsOn(String servicename, String devicename) {
+			mServiceName = servicename;
+			mDeviceName = devicename;
+		}
+
+		@Override
+		public String getServiceName() {return mServiceName;}
+		@Override
+		public String getDeviceName() {return mDeviceName;}
+		@Override
+		public String getType() {return mType;}
+		@Override
+		public int getlocalValue() {return mValue;}
+		@Override
+		public void setlocalValue(int Value) { mValue=Value;}
+
+		/**
+		 * calls Send from current Value
+		 */
+		@Override
+		public void onClick() {	Send(); }
+
+		/**
+		 * Should be called by Onreceive
+		 * changes the checkbox status and the mValue, call with 1 or 0
+		 */
+		@Override
+		public void Update(int Value) {
+
+			if (Value == 1){
+				thebox.setChecked(true);
+				setlocalValue(Value);}
+			else if (Value == 0) {
+				thebox.setChecked(false);
+				setlocalValue(Value);}
+			adapter.notifyDataSetChanged();
+		}
+
+		@Override
+		public void Send() {
+			//TODO: call the real send with !mValue
+		}
+
+		@Override
+		public void onCreate(View row) {
+			if (null == mRow) 
+				this.mRow = row;
+			if (null == Servicename) 
+				Servicename = (TextView) mRow.findViewById(R.id.checkbox_text);
+			if (null == thebox)
+				thebox = (CheckBox) mRow.findViewById(R.id.checkBox1);
+			if (!(mServiceName==null))	
+				Servicename.setText(mServiceName);
+			
+			thebox.setFocusable(false);
+			thebox.setClickable(false);
+		}
+
+		@Override
+		public int getviewtype() {return mViewType;}
+	}
+
+
+	private class RowData_GetValue implements RowData{
+		protected String mServiceName;
+		protected String mDeviceName;
+		protected String mType="GetValue";
+
+		protected int mValue;
+
+		protected View mRow = null;
+		private int mViewType = R.layout.item_getvalue;
+		private TextView Servicename = null;
+		private TextView Value;
+
+		public RowData_GetValue(String servicename, String devicename) {
+			this.mServiceName = servicename;
+			this.mDeviceName = devicename;
+		}
+		@Override
+		public String getServiceName() {return mServiceName;}
+		@Override
+		public String getDeviceName() {return mDeviceName;}
+		@Override
+		public String getType() {return mType;}
+		@Override
+		public int getlocalValue() {return mValue;}
+		@Override
+		public void setlocalValue(int Value) {mValue = Value;}
+		@Override
+		public void onClick() {	Send();	}
+
+		@Override
+		public void Update(int value) {
+			mValue = value;
+
+			this.Value.setText(value);
+			adapter.notifyDataSetChanged();
+		}
+		@Override
+		public void Send() {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public void onCreate(View row) {
+
+			if (null == mRow) 
+				this.mRow = row;
+			if (null == Servicename)
+				Servicename = (TextView) mRow.findViewById(R.id.item_gv_service);
+			if (null == Value) 
+				Value = (TextView) mRow.findViewById(R.id.item_gv_thevalue);
+			if (!(mServiceName==null))	
+				Servicename.setText(mServiceName);
+		}
+
+		@Override
+		public int getviewtype() {return mViewType;}
+	}
+
+	/*
+	 * ***********************************
+	 * *******END OF ROWDATA TYPES********
+	 * ***********************************
+	 */
+/**
+ * 
+ * @author Gurr3
+ * Creates an item into the view, calls the Rowdata onCreate.
+ */
+	private class CustomAdapter extends ArrayAdapter<RowData> {
+
+		public CustomAdapter(Context context, int resource,	int textViewResourceId, List<RowData> objects) {
+			super(context, resource, textViewResourceId, objects);
+		}
+
+		@Override
+		public void add(RowData rw) {
+			super.add(rw);
+			super.notifyDataSetChanged();
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			RowData rowData = getItem(position);
+
+			// we want to reuse already constructed row views...
+			if (null == convertView) {
+				convertView = mInflater.inflate(rowData.getviewtype(), null);
+				convertView.setTag(rowData);
+			}
+			
+			rowData.onCreate(convertView);
+			return convertView;
+		}
 	}
 }
-//
-//public class DeviceActivity extends ListActivity {
-//	private LayoutInflater mInflater;
-//	private Vector<RowData> data;
-//
-//	/** Called when the activity is first created. */
-//	@Override
-//	public void onCreate(Bundle savedInstanceState) {
-//		super.onCreate(savedInstanceState);
-//		setContentView(R.layout.main);
-//		mInflater = (LayoutInflater) getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-//		data = new Vector<RowData>();
-//		RowData rd = new RowData("item1", "description1");
-//		data.add(rd);
-//		rd = new RowData("item2", "description2");
-//		data.add(rd);
-//		rd = new RowData("item2", "description3");
-//		data.add(rd);
-//
-//		CustomAdapter adapter = new CustomAdapter(this, R.layout.custom_row, R.id.item, data);
-//		setListAdapter(adapter);
-//		getListView().setTextFilterEnabled(true);
-//	}
-//
-//	public void onListItemClick(ListView parent, View v, int position, long id) {
-//		CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
-//		RowData row = adapter.getItem(position);
-//		Builder builder = new AlertDialog.Builder(this);
-//		builder.setTitle(row.mItem);
-//		builder.setMessage(row.mDescription + " -> " + position);
-//		builder.setPositiveButton("ok", null);
-//		builder.show();
-//	}
-//
-//	/**
-//	 * Data type used for custom adapter. Single item of the adapter.
-//	 */
-//	private class RowData {
-//		protected String mItem;
-//		protected String mDescription;
-//
-//		RowData(String item, String description) {
-//			mItem = item;
-//			mDescription = description;
-//		}
-//
-//		@Override
-//		public String toString() {
-//			return mItem + " " + mDescription;
-//		}
-//	}
-//
-//	private class CustomAdapter extends ArrayAdapter<RowData> {
-//
-//		public CustomAdapter(Context context, int resource,
-//				int textViewResourceId, List<RowData> objects) {
-//			super(context, resource, textViewResourceId, objects);
-//
-//		}
-//
-//		@Override
-//		public View getView(int position, View convertView, ViewGroup parent) {
-//			ViewHolder holder = null;
-//
-//			// widgets displayed by each item in your list
-//			TextView item = null;
-//			TextView description = null;
-//
-//			// data from your adapter
-//			RowData rowData = getItem(position);
-//
-//			// we want to reuse already constructed row views...
-//			if (null == convertView) {
-//				convertView = mInflater.inflate(R.layout.custom_row, null);
-//				holder = new ViewHolder(convertView);
-//				convertView.setTag(holder);
-//			}
-//			//
-//			holder = (ViewHolder) convertView.getTag();
-//			item = holder.getItem();
-//			item.setText(rowData.mItem);
-//
-//			description = holder.getDescription();
-//			description.setText(rowData.mDescription);
-//
-//			return convertView;
-//		}
-//	}
-//
-//	/**
-//	 * Wrapper for row data.
-//	 * 
-//	 */
-//	private class ViewHolder {
-//		private View mRow;
-//		private TextView description = null;
-//		private TextView item = null;
-//
-//		public ViewHolder(View row) {
-//			mRow = row;
-//		}
-//
-//		public TextView getDescription() {
-//			if (null == description) {
-//				description = (TextView) mRow.findViewById(R.id.description);
-//			}
-//			return description;
-//		}
-//
-//		public TextView getItem() {
-//			if (null == item) {
-//				item = (TextView) mRow.findViewById(R.id.item);
-//			}
-//			return item;
-//		}
-//
-//	}
-//}

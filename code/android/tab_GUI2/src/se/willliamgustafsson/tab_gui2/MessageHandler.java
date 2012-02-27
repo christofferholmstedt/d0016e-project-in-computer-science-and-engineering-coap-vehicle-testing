@@ -3,30 +3,30 @@ package se.willliamgustafsson.tab_gui2;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.jcoap.connection.DefaultCoapChannelManager;
 import android.jcoap.interfaces.CoapChannel;
 import android.jcoap.interfaces.CoapChannelManager;
 import android.jcoap.interfaces.CoapClient;
 import android.jcoap.interfaces.CoapMessage;
 import android.jcoap.messages.CoapMessageCode.MessageCode;
-import android.os.Handler;
 
 public class MessageHandler implements CoapClient {
+	//usable stuff
 	//private static final String SERVER_ADDRESS_default = "mulle.csproject.org";
 	// private static final int PORT = 61616;
-	// static int counter = 0;
 	CoapChannelManager channelManager = null;
 	CoapChannel clientChannel = null;
-	//temp tillsvidare
-	public byte[] temp;
-/**
- * Builds our custom CoAP message handler, no idea what it actually does :)
- */
-	public MessageHandler() {
-		System.out.println("Start CoAP Client");
 
+	public byte[] temp = "Not a real value".getBytes();
+	ServerActivity srvActivity;
+	
+
+	public MessageHandler(ServerActivity srvActivity) {
+		this.srvActivity=srvActivity;
+		System.out.println("Start CoAP Client");
 		channelManager = DefaultCoapChannelManager.getInstance();
-		// runTestClient();
 	}
 
 	/**
@@ -44,7 +44,6 @@ public class MessageHandler implements CoapClient {
 		CoAPGET(SERVER_ADDRESS, 61616, message, Options);
 	}
 
-	
 	/**
 	 * 
 	 * @param SERVER_ADDRESS
@@ -80,14 +79,35 @@ public class MessageHandler implements CoapClient {
 	@Override
 	public void onResponse(CoapChannel channel, CoapMessage response) {
 		System.out.println("Received response");
-		System.out.println("HEJ DETTA ÄR INDATA: "+response.getPayload().toString());
+		System.out.println("HEJ DETTA ÄR INDATA: "+new String(response.getPayload()));//copyValueOf(response.getPayload());//response.getPayload());
+		/*
+		 * 
+		 * 
+        byte[] byteArray = new byte[] {87, 79, 87, 46, 46, 46};
+        
+        String value = new String(byteArray);
+        
+        System.out.println(value);
+		 */
 		temp= response.getPayload();
+		this.srvActivity.setthis = new String(response.getPayload());
 		//Handler srvActivity = new Handler();
 		
+		//Call the UpdateValues()
+		this.srvActivity.handler.post(new Runnable() {
+			@Override
+			public void run() {
+			
+			
+				// this will be done in the Pipeline Thread
+			}
+		});
 		
 		//TODO: Figure out where this is supposed to return
 		//return response.getPayload().toString();
 	}
+	
+	
 
 	@Override
 	public void onConnectionFailed(CoapChannel channel, boolean notReachable,

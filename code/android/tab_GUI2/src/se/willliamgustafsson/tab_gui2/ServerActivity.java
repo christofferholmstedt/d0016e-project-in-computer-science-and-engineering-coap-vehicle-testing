@@ -1,6 +1,6 @@
 package se.willliamgustafsson.tab_gui2;
 
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -11,7 +11,8 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.SystemClock;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 //-----------------------------------------------
-
 //public class ServerActivity extends Activity{
 //	
 //	@Override
@@ -63,7 +63,6 @@ import android.widget.TextView;
 //}
 
 //------------------------------------
-
 /*public class ServerActivity extends ListActivity {
 
  static final String[] MONSTERS = new String[] { "Zombie", "Vampire",
@@ -97,13 +96,18 @@ import android.widget.TextView;
  */
 
 //--------------------------------------------
-
 public class ServerActivity extends ListActivity {
 	private LayoutInflater mInflater;
 	private Vector<RowData> data;
 	private TableRow Row_button;
 	CustomAdapter adapter;
-	MessageHandler msgHandler=new MessageHandler();
+
+	MessageHandler msgHandler = new MessageHandler(this);
+
+	public ArrayList<String> message;
+	public String setthis = "lol";
+	Handler handler;
+
 
 	/** Called when the activity is first created. */
 	@Override
@@ -111,22 +115,24 @@ public class ServerActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.list_gui);
+		// Creates a handler for the UpdateValues() function
+		//handler = new Handler();
 
 		mInflater = (LayoutInflater) getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 		data = new Vector<RowData>();
 
-		//just to fill upp the view with a few elements
-		RowData rd = new RowData("Server 1", "Adress 1", "Mulle");
+		// just to fill upp the view with a few elements
+		RowData rd = new RowData("Server 1", "Adress 1");
 		data.add(rd);
-		rd = new RowData("Server 2", "Adress 2", "Mull2");
+		rd = new RowData("Server 2", "Adress 2");
 		data.add(rd);
-		rd = new RowData("Server 3", "Adress 3", "Mull3");
+		rd = new RowData("Server 3", "Adress 3");
 		data.add(rd);
 
 		// Addknappen
 		Row_button = (TableRow) findViewById(R.id.tableRow1);
 
-		//om man klickar add
+		// om man klickar add
 		Row_button.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -146,52 +152,44 @@ public class ServerActivity extends ListActivity {
 				alert.setPositiveButton("Ok",
 						new DialogInterface.OnClickListener() {
 
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
+					public void onClick(DialogInterface dialog,
+							int whichButton) {
 
-								EditText hostname_temp = (EditText) textEntryView.findViewById(R.id.editTextHostname);
-								String hostname = hostname_temp.getText().toString();
-								
-								EditText hostaddr_temp = (EditText) textEntryView.findViewById(R.id.editTextHostadress);
-								String hostaddr;
-								
-								//defaults server if none given
-								if (hostaddr_temp.getText().toString().equals("")) {
-									hostaddr = getString(R.string.hostadress);
-								} else {
-									hostaddr = hostaddr_temp.getText().toString();
-								}
-					
-								RowData hostrow = new RowData(hostname,	hostaddr, "GO GO SUPER MULLE!");
-								adapter.add(hostrow);
-								return;
-							}
-						});
+						EditText hostname_temp = (EditText) textEntryView
+								.findViewById(R.id.editTextHostname);
+						String hostname = hostname_temp.getText()
+								.toString();
+
+						EditText hostaddr_temp = (EditText) textEntryView
+								.findViewById(R.id.editTextHostadress);
+						String hostaddr;
+
+						// defaults server if none given
+						if (hostaddr_temp.getText().toString()
+								.equals("")) {
+							hostaddr = getString(R.string.hostadress);
+						} else {
+							hostaddr = hostaddr_temp.getText()
+									.toString();
+						}
+
+						RowData hostrow = new RowData(hostname,
+								hostaddr);
+						adapter.add(hostrow);
+						return;
+					}
+				});
 
 				alert.setNegativeButton("Cancel",
 						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,	int which) {
-								return;
-							}
-						});
+					public void onClick(DialogInterface dialog,
+							int which) {
+						return;
+					}
+				});
 				alert.show();
 			}
 		});
-
-
-		// ---------------------
-		// switch (state) {
-		// case 0:
-		// Row_button.setBackgroundColor(Color.YELLOW);
-		// // RowData rd2 = new RowData("lol", "desc", "top");
-		// //adapter.add(rd2);
-		// state = 1;
-		// break;
-		// case 1:
-		// Row_button.setBackgroundColor(Color.TRANSPARENT);
-		// state = 0;
-		// break;
-		// -------------------
 
 		// custom_row.xml should contain a list of views or something like that
 		adapter = new CustomAdapter(this, R.layout.custom_row, R.id.item, data);
@@ -201,42 +199,74 @@ public class ServerActivity extends ListActivity {
 
 	}
 
-	// RowName = (TableRow) findViewById(R.id.RowName);
-	// RowName.setBackgroundColor(Color.TRANSPARENT);
-	//
-	// RowName.setOnClickListener(new View.OnClickListener() {
-	//
-	// public void onClick(View v) {
-	//
-	// if (RowName.equals(Color.TRANSPARENT))
-	// RowName.setBackgroundColor(Color.YELLOW);
-	//
-	// else if (RowName.equals(Color.YELLOW))
-	// RowName.setBackgroundColor(Color.TRANSPARENT);
-	// }
-	// });
-	
 	public void onListItemClick(ListView parent, View v, int position, long id) {
 		CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
 		RowData row = adapter.getItem(position);
-		Builder builder = new AlertDialog.Builder(this);
-		
-		//TODO: PINGA SERVERN ELLER NGT COOLT
+		//	Builder builder = new AlertDialog.Builder(this);
+
+		// TODO: PINGA SERVERN ELLER NGT COOLT
 		// skicka grejer med msgHandler vid bättre tillfällen och med ngt
 		// användbart i
 		// MessageHandler msgHandler = new MessageHandler();
 		// msgHandler.CoAPGET("mulle.csproject.org", "lol", "temperature");
-		//msgHandler = new MessageHandler();
-		//TODO: check if mServeraddr is INETaddr
-		//TODO: HÅRDKODAT
-		msgHandler.CoAPGET(row.mServeraddr, "", "counterservice");	
-		//SystemClock.sleep(10);
-	    
-		builder.setTitle(row.mHostname);
-		builder.setMessage(row.mHostname + "\n" + row.mServeraddr + "\n counter: " + msgHandler.temp);
-		builder.setPositiveButton("ok", null);
-		builder.show();
+		// msgHandler = new MessageHandler();
+		// TODO: check if mServeraddr is INETaddr
+		// TODO: HÅRDKODAT
+		// TODO: msgHandler.CoAPGET(row.mServeraddr, "", "GetActiveDevices");
+
+		msgHandler.CoAPGET(row.mServeraddr, "", "counterservice");
+		//String hej = new String(msgHandler.temp);
+
+		//Tillfälligt flyttat till UpdateValues()
+		//		builder.setTitle(row.mHostname);
+		//		builder.setMessage(row.mHostname + "\n" + row.mServeraddr
+		//				+ "\n counter: " + setthis);
+		//		builder.setPositiveButton("ok", null);
+		//		builder.show();
 	}
+
+	//	/**
+	//	 * Should be executed with handler.post() Experimental async updates using
+	//	 * http
+	//	 * ://mindtherobot.com/blog/159/android-guts-intro-to-loopers-and-handlers/
+	//	 */
+	//	public void UpdateValues() {
+	//
+	//		try {
+	//			// preparing a looper on current thread
+	//			// the current thread is being detected implicitly
+	//			Looper.prepare();
+	//
+	//			// now, the handler will automatically bind to the
+	//			// Looper that is attached to the current thread
+	//			// You don't need to specify the Looper explicitly
+	//			handler = new Handler();
+	//
+	//			// After the following line the thread will start
+	//			// running the message loop and will not normally
+	//			// exit the loop unless a problem happens or you
+	//			// quit() the looper (see below)
+	//			Looper.loop();
+	//			
+	//			
+	//			
+	//		} catch (Throwable t) {
+	//			System.out.println("halted due to an error: " + t);
+	//		}
+	//	}
+
+	//	public void ChangeValues(){
+	//		RowData row = adapter.getItem(position);
+	//		Builder builder = new AlertDialog.Builder(this);
+	//		builder.setTitle(row.mHostname);
+	//		builder.setMessage(row.mHostname + "\n" + row.mServeraddr
+	//				+ "\n counter: " + setthis);
+	//		builder.setPositiveButton("ok", null);
+	//		builder.show();
+	//	}
+
+
+
 
 	/**
 	 * Data type used for custom adapter. Single item of the adapter.
@@ -244,17 +274,17 @@ public class ServerActivity extends ListActivity {
 	private class RowData {
 		protected String mHostname;
 		protected String mServeraddr;
-		protected String mlol;
+		//protected String mlol;
 
-		RowData(String hostname, String serveraddr, String lol) {
+		RowData(String hostname, String serveraddr/*, String lol*/) {
 			mHostname = hostname;
 			mServeraddr = serveraddr;
-			mlol = lol;
+			//			mlol = lol;
 		}
 
 		@Override
 		public String toString() {
-			return mHostname + " " + mServeraddr + " " + mlol;
+			return mHostname + " " + mServeraddr /*+ " " + mlol*/;
 		}
 	}
 
@@ -279,7 +309,7 @@ public class ServerActivity extends ListActivity {
 			// widgets displayed by each item in your list
 			TextView hostname = null;
 			TextView serveraddr = null;
-			TextView lol = null;
+			//			TextView lol = null;
 
 			// data from your adapter
 			RowData rowData = getItem(position);
@@ -291,14 +321,15 @@ public class ServerActivity extends ListActivity {
 				convertView.setTag(holder);
 			}
 			holder = (ViewHolder) convertView.getTag();
+
 			hostname = holder.getHostname();
 			hostname.setText(rowData.mHostname);
 
 			serveraddr = holder.getserveraddr();
 			serveraddr.setText(rowData.mServeraddr);
 
-			lol = holder.getlol();
-			lol.setText(rowData.mlol);
+			//			lol = holder.getlol();
+			//			lol.setText(rowData.mlol);
 
 			return convertView;
 		}
@@ -312,7 +343,7 @@ public class ServerActivity extends ListActivity {
 		private View mRow;
 		private TextView serveraddr = null;
 		private TextView hostname = null;
-		private TextView lol = null;
+		//		private TextView lol = null;
 
 		public ViewHolder(View row) {
 			mRow = row;
@@ -332,13 +363,12 @@ public class ServerActivity extends ListActivity {
 			return hostname;
 		}
 
-		public TextView getlol() {
-			if (null == lol) {
-				lol = (TextView) mRow.findViewById(R.id.lol);
-			}
-			return lol;
-		}
+		//		public TextView getlol() {
+		//			if (null == lol) {
+		//				lol = (TextView) mRow.findViewById(R.id.lol);
+		//			}
+		//			return lol;
+		//		}
 	}
 
-	
 }

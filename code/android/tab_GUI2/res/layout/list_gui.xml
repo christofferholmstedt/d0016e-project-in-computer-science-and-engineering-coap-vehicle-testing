@@ -5,20 +5,21 @@
     android:orientation="vertical" >
 
     <!-- Kan ersättas med ngt mer passande -->
+    <!-- DETTA ÄR ADD KNAPPEN -->
 
     <TableRow
         android:id="@+id/tableRow1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#333333"
-        android:gravity="center" 
-        android:clickable="True">
+        android:clickable="True"
+        android:gravity="center" >
 
         <ImageView
             android:id="@+id/imageView1"
-            android:contentDescription="@string/fulknapp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/fulknapp"
             android:src="@drawable/ful_add_knapp" />
 
         <!-- relativ layout för att flytta, eller hårdkoda med margin -->
@@ -33,6 +34,8 @@
             android:textSize="20dp" />
     </TableRow>
 
+    <!-- DETTA ÄR LISTAN -->
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
@@ -41,6 +44,7 @@
         android:background="#000000"
         android:drawSelectorOnTop="false" >
     </ListView>
+    <!-- Om listan är tom -->
 
     <TextView
         android:id="@android:id/empty"
@@ -49,7 +53,8 @@
         android:background="#000000"
         android:text="@string/no_data" />
 
-</LinearLayout><!--
+</LinearLayout>
+<!--
 <?xml version="1.0" encoding="utf-8"?>
  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
          android:orientation="vertical"

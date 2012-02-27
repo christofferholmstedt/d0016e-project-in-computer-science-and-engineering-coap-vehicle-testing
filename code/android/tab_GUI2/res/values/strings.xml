@@ -8,7 +8,8 @@
 	
 	<string name="item1">lol, text</string> 
 	
-	<string name="no_data">lol, ingen data</string> 
+	<string name="no_data">ingen data</string> 
+	<string name="no_data2">0 data</string>
 	<string name="data">lol, jag har data</string> 
 	
 	<string name="add">add</string>
@@ -17,5 +18,6 @@
 	<!-- Edittext defaults -->
 	<string name="hostadress">mulle.csproject.org</string>
 	<string name="hostname">Server name</string>
+	<string name="noUnit">"?"</string>
     
 </resources>

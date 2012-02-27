@@ -2,7 +2,6 @@
 
 package se.willliamgustafsson.tab_gui2;
 
-import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.Vector;
 
@@ -25,6 +24,8 @@ public class DeviceActivity extends ListActivity {
 	private LayoutInflater mInflater;
 	private Vector<RowData> data;
 	CustomAdapter adapter;
+	final public int typeIsOn = 1;
+	final public int typeGetValue = 2;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,29 +46,60 @@ public class DeviceActivity extends ListActivity {
 		 * service 2             <-- list item
 		 * _________________
 		 */
-		
+
 		//ADDING RANDOM STUFF TO GET A VIEW OF HOW IT WILL LOOK
-		RowData_IsOn rdio = new RowData_IsOn("service 1", "device 1");
-		data.add(rdio);
-		rdio = new RowData_IsOn("service 2", "device 1");
-		data.add(rdio);
+		//		RowData_IsOn rdio = new RowData_IsOn("service 1", "device 1");
+		//		data.add(rdio);
+		//		rdio = new RowData_IsOn("service 2", "device 1");
+		//		data.add(rdio);
+		//
+		//		RowData_GetValue rdgv = new RowData_GetValue("service 3", "device 1");
+		//		data.add(rdgv);
+		//		rdgv = new RowData_GetValue("service 1", "device 2");
+		//		data.add(rdgv);
+		//
+		//		rdio = new RowData_IsOn("service 2", "device 2");
+		//		data.add(rdio);
 
-		RowData_GetValue rdgv = new RowData_GetValue("service 3", "device 1");
-		data.add(rdgv);
-		rdgv = new RowData_GetValue("service 1", "device 2");
-		data.add(rdgv);
-
-		rdio = new RowData_IsOn("service 2", "device 2");
-		data.add(rdio);
-		//END RANDOM STUFF ADDING
 
 		adapter = new CustomAdapter(this, R.layout.item_checkbox, R.id.checkbox_text, data);
 
 		setListAdapter(adapter);
 		getListView().setTextFilterEnabled(true);
-
+		
+		//ADDING RANDOM STUFF
+		newItem("device 1", "service 1", typeIsOn, 0);
+		newItem("device 1", "service 2", typeIsOn, 1);
+		newItem("device 1", "service 3", typeGetValue, 0);
+		newItem("device 2", "service 1", typeGetValue, 1);
+		newItem("device 2", "service 2", typeIsOn, 1);
 
 	}
+
+	/**
+	 * @author Gurr3
+	 * @param devicename
+	 * @param servicename
+	 * @param type should be called with predefined values typeIsOn, typeGetValue
+	 * @param Value
+	 * 
+	 */
+	public void newItem(String devicename, String servicename, int type, int Value){
+
+		RowData rd = null;
+		if (type==typeIsOn)
+		{rd = new RowData_IsOn(servicename, devicename);}
+		else if (type==typeGetValue) 
+		{rd = new RowData_GetValue(servicename, devicename);}
+		else 
+		{System.out.println("no such type available"); return;}
+
+		adapter.add(rd);
+		//GO GO Gadget error :(
+		//rd.Update(Value);	
+		//rd.Update calls notifydatasetchanged
+	}
+
 	/**
 	 * @author Gurr3
 	 * When clicking on the list, this code runs. Planned use is to call the active Rowdata's onClick method.
@@ -165,12 +197,20 @@ public class DeviceActivity extends ListActivity {
 		@Override
 		public void Update(int Value) {
 
+			if (Value >1 || Value < 0){
+				System.out.println("fel värde");
+				return;
+			}
 			if (Value == 1){
-				thebox.setChecked(true);
-				setlocalValue(Value);}
-			else if (Value == 0) {
-				thebox.setChecked(false);
-				setlocalValue(Value);}
+			//	if (!this.thebox.isChecked())
+					this.thebox.setChecked(true);
+			}
+			else if (Value == 0){
+			//	if( this.thebox.isChecked())
+					this.thebox.setChecked(false);
+			}
+
+			setlocalValue(Value);
 			adapter.notifyDataSetChanged();
 		}
 
@@ -184,14 +224,16 @@ public class DeviceActivity extends ListActivity {
 			if (null == mRow) 
 				this.mRow = row;
 			if (null == Servicename) 
-				Servicename = (TextView) mRow.findViewById(R.id.checkbox_text);
+				this.Servicename = (TextView) mRow.findViewById(R.id.checkbox_text);
+			System.out.println("lol1");
 			if (null == thebox)
-				thebox = (CheckBox) mRow.findViewById(R.id.checkBox1);
+				System.out.println("lol");
+			this.thebox = (CheckBox) mRow.findViewById(R.id.checkBox1);
 			if (!(mServiceName==null))	
 				Servicename.setText(mServiceName);
-			
-			thebox.setFocusable(false);
-			thebox.setClickable(false);
+
+			this.thebox.setFocusable(false);
+			this.thebox.setClickable(false);
 		}
 
 		@Override
@@ -262,11 +304,11 @@ public class DeviceActivity extends ListActivity {
 	 * *******END OF ROWDATA TYPES********
 	 * ***********************************
 	 */
-/**
- * 
- * @author Gurr3
- * Creates an item into the view, calls the Rowdata onCreate.
- */
+	/**
+	 * 
+	 * @author Gurr3
+	 * Creates an item into the view, calls the Rowdata onCreate.
+	 */
 	private class CustomAdapter extends ArrayAdapter<RowData> {
 
 		public CustomAdapter(Context context, int resource,	int textViewResourceId, List<RowData> objects) {
@@ -288,7 +330,7 @@ public class DeviceActivity extends ListActivity {
 				convertView = mInflater.inflate(rowData.getviewtype(), null);
 				convertView.setTag(rowData);
 			}
-			
+
 			rowData.onCreate(convertView);
 			return convertView;
 		}

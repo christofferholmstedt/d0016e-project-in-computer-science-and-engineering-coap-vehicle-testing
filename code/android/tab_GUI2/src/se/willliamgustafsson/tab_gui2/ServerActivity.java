@@ -138,52 +138,39 @@ public class ServerActivity extends ListActivity {
 			@Override
 			public void onClick(View v) {
 
-				LayoutInflater factory = LayoutInflater
-						.from(ServerActivity.this);
+				LayoutInflater factory = LayoutInflater.from(ServerActivity.this);
 
-				final View textEntryView = factory.inflate(
-						R.layout.builder_edittext, null);
-				AlertDialog.Builder alert = new AlertDialog.Builder(
-						ServerActivity.this);
+				final View textEntryView = factory.inflate(R.layout.builder_edittext, null);
+				AlertDialog.Builder alert = new AlertDialog.Builder(ServerActivity.this);
 				alert.setTitle("Add Server");
 				alert.setMessage("Enter Servername and adress:");
 				alert.setView(textEntryView);
 
-				alert.setPositiveButton("Ok",
-						new DialogInterface.OnClickListener() {
+				alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
-					public void onClick(DialogInterface dialog,
-							int whichButton) {
+					public void onClick(DialogInterface dialog,int whichButton) {
 
-						EditText hostname_temp = (EditText) textEntryView
-								.findViewById(R.id.editTextHostname);
-						String hostname = hostname_temp.getText()
-								.toString();
+						EditText hostname_temp = (EditText) textEntryView.findViewById(R.id.editTextHostname);
+						String hostname = hostname_temp.getText().toString();
 
-						EditText hostaddr_temp = (EditText) textEntryView
-								.findViewById(R.id.editTextHostadress);
+						EditText hostaddr_temp = (EditText) textEntryView.findViewById(R.id.editTextHostadress);
 						String hostaddr;
 
 						// defaults server if none given
-						if (hostaddr_temp.getText().toString()
-								.equals("")) {
+						if (hostaddr_temp.getText().toString().equals("")) {
 							hostaddr = getString(R.string.hostadress);
 						} else {
-							hostaddr = hostaddr_temp.getText()
-									.toString();
+							hostaddr = hostaddr_temp.getText().toString();
 						}
 
-						RowData hostrow = new RowData(hostname,
-								hostaddr);
+						RowData hostrow = new RowData(hostname, hostaddr);
 						adapter.add(hostrow);
 						return;
 					}
 				});
 
-				alert.setNegativeButton("Cancel",
-						new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,
-							int which) {
+				alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
 						return;
 					}
 				});

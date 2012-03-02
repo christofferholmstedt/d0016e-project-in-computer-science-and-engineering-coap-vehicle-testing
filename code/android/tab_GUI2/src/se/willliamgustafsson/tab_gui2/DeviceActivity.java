@@ -95,8 +95,9 @@ public class DeviceActivity extends ListActivity {
 		{System.out.println("no such type available"); return;}
 
 		adapter.add(rd);
+		
 		//GO GO Gadget error :(
-		//rd.Update(Value);	
+		rd.Update(Value);	
 		//rd.Update calls notifydatasetchanged
 	}
 
@@ -107,6 +108,7 @@ public class DeviceActivity extends ListActivity {
 	public void onListItemClick(ListView parent, View v, int position, long id) {
 		CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
 		RowData row = adapter.getItem(position);
+		row.Update(1);
 
 	}
 
@@ -211,7 +213,7 @@ public class DeviceActivity extends ListActivity {
 			}
 
 			setlocalValue(Value);
-			adapter.notifyDataSetChanged();
+		//	adapter.notifyDataSetChanged();
 		}
 
 		@Override
@@ -274,8 +276,8 @@ public class DeviceActivity extends ListActivity {
 		public void Update(int value) {
 			mValue = value;
 
-			this.Value.setText(value);
-			adapter.notifyDataSetChanged();
+			this.Value.setText("" + value);
+		//	adapter.notifyDataSetChanged();
 		}
 		@Override
 		public void Send() {

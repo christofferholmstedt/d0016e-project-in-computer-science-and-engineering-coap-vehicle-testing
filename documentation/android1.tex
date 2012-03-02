@@ -1,0 +1,29 @@
+\subsection{Android}
+*namn* is an application for android for which the primary goals were;
+%communication goes via a server.
+\begin{itemize}
+ \item communicate using CoAP over an UDP connection
+ \item encode the sent packets with EXI to reduce the size of packets
+ \item have an interface capable of controlling multiple devices.
+\end{itemize}
+% UNDERSÖK OM MER SKA IN HÄR
+
+
+\subsubsection{How to use}
+The application starts off by showing the server menu. One will have to add a server to the list to create a connection with it. For the moment nothing else works.
+
+\subsubsection{How it is supposed to work}
+
+The application start off by showing the server menu. One will have to either add a server or use a saved one. 
+Clicking on a server in the list will validate that the server is alive and will perform a CoAP discovery on the server
+which will provide a list of devices and services in the device menu. The device menu can then be accessed to use the services available.
+The services generelly works as one click on the service item in the list, this will send a message to the server which will respond by contacting the CoAP device. The device will then either update or change something,
+it will then send a confirmation with the changes made to server which sends the changes to the application. The application will then use the provided information and update the GUI with the new values. 
+The services are generalized to; 
+\begin{itemize}
+ \item IsOn, provides an item with a checkbox that is checked if a service is on (for example a lamp). Clicking on this should provide a change on the selected device.
+ \item GetValue, provides an item which shows the last value provided. Clicking on the item should provide an update.
+ \item SendValue, provides an item which have a textbox where one can send a payload to the device. %ska denna även visa vad värdet är för tillfället? tror ej det 
+\end{itemize}
+
+

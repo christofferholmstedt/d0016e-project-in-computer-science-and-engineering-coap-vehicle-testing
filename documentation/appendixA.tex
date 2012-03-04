@@ -26,7 +26,28 @@ This appendix include information on how to build upon our codebase for the Mull
 \subsection{Mulle}
 \subsection{Server}
 \subsubsection{Coapy server}
-TODO: Python parts such as the python coapy server and how we use EXIP c-code parts. 
+\paragraph{Existing implementation}
+The server is based on CoAPy, which is a python implementation of the CoAP protocol. The actual server implementation is a modification of the example server provided along with CoAPy.
+Some minor changes were made to it allowing it to accept all forms of CoAP messages, provided they are taken care of properly. We also added a way for new services to be easily added 
+and used. 
+
+The procedure when adding new services is as follows:
+\being{enumerate}
+\item Create a new .py file with the name corresponding to the actual service name (e.g. "TestService.py") in the "services" directory
+\item The file should contain only the necessary imports (including CoAPy parts) along with a class name the same thing as the file ("TestService", in this case)
+\item The class is to define a single function "process" in which the actual actions of the service are to be made
+\end{enumerate}
+
+Using an existing service, like "CounterService.py", is highly recommended for understanding how a service should be structured and laid out.
+
+\paragraph{Further development}
+The server itself should be set to add new services to for operation. What needs more work is the incorporation of a few things:
+
+\being{enumerate}
+\item An actual XML scheme for configuration of mulle nodes. This point is not particular to the server, however.
+\item Implement ways for the server to make use of the EXIP application to translate the XML that's to be sent into EXI via the command line.
+\item Make services corresponding to the functionality you would like to have for configuration and communication with mulles and android devices, respectively.
+\end{enumerate}
 \subsubsection{Webpages and database}
 \subsection{Android Mobile Phone application}
 

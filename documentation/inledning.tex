@@ -1,0 +1,51 @@
+% EXAMPLE: Sections and Paragraphs
+% \section		- Level 1
+% \subsection		- Level 2
+% \subsubsection	- Level 3
+% \paragraph		- Level 4
+% \subparagraph		- Level 5 
+% \section{<NAME_OF_SECTION>}
+
+% EXAMPLE: Include graphics 
+% \includegraphics[width=130mm,height=108mm]{intro4.png}
+
+% EXAMPLE: Nested list
+%\begin{enumerate}
+%\item Nested list
+%\begin{enumerate}
+%\item
+%\item
+%\item
+%\item
+%\item
+%\end{enumerate}
+%\end{enumerate}
+
+\section{Project Description}
+\subsection{Background}
+Luleå University of Technology conducts research on lowpower wireless microprocessors called "Mulle". 
+These microprocessors can be used for various things depending on which type of sensors you connect to it, everything from measuring temperature or vibrations in a car to analyzing the quality of the road that you drive on.
+
+Every year northern parts of Sweden are used for testing cars during winter conditions.
+To test a car you first decide what you want to test, then you test with local sensors logging within the car.
+When enough data is collected you return back home.
+At the testing facility the data is now available for analysis.
+Depending on the results from the previous runs you might want to test some parts in more detail so you re-configure all sensors and go out for another test run.
+
+This process is time consuming when you need to return to testing facility to be able to analyze and re-configure all sensors.
+In todays society most computers are connected to internet and/or other private networks, most of these computers have the ability to be remotely configured and maintained.
+The goal with this project is to be able to analyze data from sensors in realtime and re-configure them on the fly while testing is in progress.
+\subsection{Project Targets}
+\begin{enumerate}
+\item Be able to send live sensor data from multiple "Mulles" to an online logging server/service.
+\item Be able to read sensor data on the web with both a PC (web browser) and through an Android mobile device.
+\item Be able to re-configure the sensors through a web interface and through an Android mobile device.
+\end{enumerate}
+
+\subsection{Technical limitations}
+The technical limitations for this project was mainly to restrict how flexible the finished solution was.
+The Mulles can be used together with any kind of sensors.
+In this project the main goal was to get it operational in a car and measure temperature and some other variables.
+
+
+%TODO: Vad har explicit uteslutits från arbetet?

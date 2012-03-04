@@ -1,0 +1,86 @@
+% EXAMPLE: Sections and Paragraphs
+% \section		- Level 1
+% \subsection		- Level 2
+% \subsubsection	- Level 3
+% \paragraph		- Level 4
+% \subparagraph		- Level 5 
+% \section{<NAME_OF_SECTION>}
+
+% EXAMPLE: Include graphics 
+% \includegraphics[width=130mm,height=108mm]{intro4.png}
+
+% EXAMPLE: Nested list
+%\begin{enumerate}
+%\item Nested list
+%\begin{enumerate}
+%\item
+%\item
+%\item
+%\item
+%\item
+%\end{enumerate}
+%\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Basic title page structure copied from 
+% http://en.wikibooks.org/wiki/LaTeX/Title_Creation
+%
+% Christoffer Holmstedt on the 
+% 17th of february 2012
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+\begin{center}
+
+% Upper part of the page
+% TODO ADD GRAPHIC
+%\includegraphics[width=0.15\textwidth]{./logo}\\[1cm]    
+\textsc{\LARGE Luleå University of Technology}\\[0.5cm]
+\textsc{\Large Third year project}\\[0.5cm]
+
+% Title
+\HRule \\[0.4cm]
+{\huge Sensor data aggregation through CoAP}\\[0.2cm]
+
+\HRule \\[1.5cm]
+
+% Author and supervisor
+\begin{minipage}[t]{0.5\textwidth}
+\begin{flushleft} \large
+{\bfseries \emph Authors:}\\
+Sophia \textsc{Bergendahl}\\
+\emph{sopber-8@student.ltu.se}\\[0.2cm]
+Edvin \textsc{Bruun}\\
+\emph{edvbru-9@student.ltu.se}\\[0.2cm]
+William \textsc{Gustafsson}\\
+\emph{wilgus-9@student.ltu.se}\\[0.2cm]
+Christoffer \textsc{Holmstedt}\\
+\emph{cihhol-7@student.ltu.se}\\[0.2cm]
+Marcus \textsc{Rådman}\\
+\emph{marrdm-9@student.ltu.se}\\[0.2cm]
+Kristoffer \textsc{Svensson}\\
+\emph{kirsev-9@student.ltu.se}\\[0.2cm]
+Ludwig \textsc{Thurfjell}\\
+\emph{ludthu-7@student.ltu.se}\\
+\end{flushleft}
+\end{minipage}
+\begin{minipage}[t]{0.45\textwidth}
+\begin{flushright} \large
+{\bfseries \emph Supervisors:} \\
+Ulf \textsc{Bodin}\\
+\emph{ulf.bodin@ltu.se}\\[0.2cm]
+Jens \textsc{Eliasson}\\
+\emph{jens.eliasson@ltu.se}\\[0.2cm]
+Rumen \textsc{Kyusakov}\\
+\emph{rumen.kyusakov@ltu.se}\\[0.2cm]
+\end{flushright}
+\end{minipage}
+
+\vfill
+
+% Bottom of the page
+{\large \today}
+
+\end{center}
+
+\end{titlepage}

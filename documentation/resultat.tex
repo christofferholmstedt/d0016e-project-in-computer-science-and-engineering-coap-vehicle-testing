@@ -23,8 +23,62 @@
 
 \section{Results}
 \subsection{Deliverables}
-TODO: Vad levererar vi med respekt till ursprungliga krav?
-\subsection{Testing}
-\subsection{Lessons learnt}
-\subsection{Suggested improvements}
+Mainly due to being unable to setup communication from the Mulle to the server, project target number one listed in the beginning of this document is not met.
+What is delivered from the project concerning this is available in Appendix A where a guide on how to get started where this project ends is available.
 
+Project target number two is not met.
+What is delivered from the project is a basic webapplication with a simple database structure as the back-end where future real sensor data can be stored.
+
+Project target number three is not met.
+Basic functionality on how to use EXI as encoding for sensor data is available for the Mulle and the Android application but hasn't been tested.
+No work on EXI has been made for the server though there exist a simple webpage to turn a value on or off.
+
+\subsection{Testing}
+During this project testing has been made by each project member.
+The scope of the testing for each story has been up to each project member to decide upon.
+Right before each sprint demo a project meeting was scheduled were each one showed what was completed and what was not.
+Depending on what was ready at that point in time the entire Scrum team decided what was going to be presented at the demo and a test was made to confirm that it was possible to show the parts that were decided upon.
+No further testing was made during this project.
+\subsection{Lessons learnt}
+Communication is always troublesome, it's usually easy to get a system to transmit data and another to do the same.
+The hard part is when you want different system to actually communicate with each other.
+This boiles down to the lesson learnt that the project should have focused more on specific components instead of spreading out on all three components (Mulle, Android and the server) from the beginning.
+The goal should have been to get the Mulle communicate with either the server or the android device to start with.
+When that was operational new systems could have been added to the mix.
+
+Testing is always hard to do, it might be easy to test specific test cases but is very hard to test all possible usages.
+To make sure that your codebase doesn't become useless in the long run you need somekind of automated testing to make sure that all previous bugs found is tested automatically with all new improvements and add-ons.
+It might be time consuming in the beginning of a project but it's priceless in the end.
+An important part of testing is to test both individual components and interaction between different components.
+If only testing is made to the interaction between different components a finished component cannot be tested until the other one is finished aswell, this creates bottlenecks for the entire project.
+
+When is something done?
+Do not let this question be up to the individual programmer, it puts the programmer in a difficult situation.
+Either the programmer wants to create the perfect spot and keeps going forever or the programmer will take shortcuts that will comeback and haunt you later on.
+It must be up to the team to decide when something is done or not.
+This will make it alot easier in the day to day work for everyone, if anybody is uncertain if it's completed or not, just look into what was decided earlier.
+\subsection{Suggested improvements}
+Without meeting any of our project targets it's hard to suggest improvements except the obvious one to complete what has been started. 
+Instead of going straight at it and try to finish it all as soon as possible some thought process need to be put into the question, what really needs to be finished?
+
+From this projects point of view the first thing to prioritze is to get some communication with the Mulle.
+The Mulle in its current state has alot of bugs which makes it hard to debug, there seems to be alot of "random" bugs occuring when you lest expect them. 
+The code that is finished "should work" but hasn't.
+
+The second priority should be to rethink the servers purpose.
+At the current state the python implementation is very simple and if the only thing you want to do is add new CoAP services which just return some simple results, then keep going with the current server implementation.
+A new service is very easy to add.
+What has been realized at the end of this project is that in the long run it might be better to create a new C server implementation instead.
+The main reason for this is that when you want to implement custom communication protocols such as EXI alot of code is available in C and with a server implementation in C it will be relatively easy to share code between the server and Mulle system.
+
+As the third and last priority, work should be put into the Android system. With the Mulle up and running for testing purposes it should be easy to get going with the android application but without the Mulle the android application isn't worth anything.
+
+
+% TODO: Fortsätt på Mullen
+% TODO: Tänk efter om CoAPy är rätt väg att gå
+% TODO: Skippa android tillsvidare om den inte är viktigare än servern.
+
+%
+% Scrum och relatera till våra referenser \cite{kniberg07}
+% \cite[p.~107]{kniberg07}
+%

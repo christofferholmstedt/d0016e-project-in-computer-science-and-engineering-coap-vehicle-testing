@@ -118,7 +118,7 @@ Some minor changes were made to it allowing it to accept all forms of CoAP messa
 and used. 
 
 The procedure when adding new services is as follows:
-\being{enumerate}
+\begin{enumerate}
 \item Create a new .py file with the name corresponding to the actual service name (e.g. "TestService.py") in the "services" directory
 \item The file should contain only the necessary imports (including CoAPy parts) along with a class name the same thing as the file ("TestService", in this case)
 \item The class is to define a single function "process" in which the actual actions of the service are to be made
@@ -129,7 +129,7 @@ Using an existing service, like "CounterService.py", is highly recommended for u
 \paragraph{Further development}
 The server itself should be set to add new services to for operation. What needs more work is the incorporation of a few things:
 
-\being{enumerate}
+\begin{enumerate}
 \item An actual XML scheme for configuration of mulle nodes. This point is not particular to the server, however.
 \item Implement ways for the server to make use of the EXIP application to translate the XML that's to be sent into EXI via the command line.
 \item Make services corresponding to the functionality you would like to have for configuration and communication with mulles and android devices, respectively.

@@ -24,31 +24,31 @@
 This appendix include information on how to build upon our codebase for the Mulle (C), server code (Python, PHP/HTML5 and C) and Android Mobile phone (Java).
 \subsection{Mulle}
 The Mulle communication via COAP is far from finished and therefore here is a guide how to get started followed by what should be further built. The instruction on how to get started are done in Ubuntu, the versions that were tested are 10.04 and 11.11. Windows or any other OS will not be covered in this guide.
-\\\\
+
 The Mulle software required is all in the Software-PAN-NAP folder which contain necessary libraries and applications. It is assumed that you have acquired this because it's essential for any development.
 
 \subsubsection{Getting started}
 The first step you will take is to download the code from a repository on Github.com, if you don't know how to do this there are several guides how to do that on their site. Since there are several ways to do this here are the links to the repository:
 \begin{itemize}
-\item Download zip: https://github.com/christofferholmstedt/vehicletesting/zipball/master
-\item Git: git://github.com/christofferholmstedt/vehicletesting.git
-\item SSH: git@github.com:christofferholmstedt/vehicletesting.git
+\item Download zip: \url{https://github.com/christofferholmstedt/vehicletesting/zipball/master}
+\item Git: \url{git://github.com/christofferholmstedt/vehicletesting.git}
+\item SSH: \url{git@github.com:christofferholmstedt/vehicletesting.git}
 \end{itemize}
 When you've done this note that you'll only need files from the ../vehicletesting/code/Mulle folder.
 In this folder there are two subfolders named Coap and PAN-Router\_demo. 
 These two folders are going to seperate locations in your Mulle software folder, 
 since the Coap folder contains the code for the protocol and PAN-Router\_demo code for the application. 
-\\\\
+
 The folder Coap should be copied into ../$<$Mulle Software folder$>$/Libary/misc/apps/ 
 and the PAN-Router\_demo folder goes to  ../$<$Mulle Software folder$>$/Applications/. 
 The PAN-Router\_demo folder is optional to use, if you want to use you're own Mulle program you need to include coap.h and run coap\_init() somewhere in your applications c-file. 
 Since the coap-protocol isn't official you also need to put a "\#define LWIP\_COAP" and set it to 1 in proj\_arch.h(as well as turn off any other protocol that are used for communcation) 
 and finally you need to add coap.c in the SOURCES.mk file. This is done by adding "\$(LIBDIR)/misc/apps/coap/coap.c" to the LWIP\_Apps field.
-\\\\
+
 Now when you have the code set up you must install the gcc compiler, namely m32c-elf-gcc, for this type of hardware. Do the following steps in your terminal with sudo, alternatively make a script. Be prepared to redo this if you're doing it in a script. It's preferable to do this step by step because it has a higher rate of succeeding. 
-\\\\
-Alternatively you can follow this guide(however, it's strongly advised not to): http://www.eistec.se/docs/wiki/index.php?title=Mulle\_software\_with\_GCC
-\\\\
+
+Alternatively you can follow this guide(however, it's strongly advised not to): \url{http://www.eistec.se/docs/wiki/index.php?title=Mulle\_software\_with\_GCC}
+
 Setup Development Host:
 \begin{itemize}
 \item apt-get install build-essential
@@ -70,8 +70,8 @@ Setup Development Host:
 
 \noindent In the next step you'll download gcc-4.3.3 and newlib 1.17 and install them:
 \begin{itemize}
-\item wget ftp://ftp.nluug.nl/mirror/languages/gcc/releases/gcc-4.3.3/gcc-4.3.3.tar.bz2
-\item wget ftp://ftp.nluug.nl/mirror/languages/gcc/releases/gcc-4.3.3/gcc-core-4.3.3.tar.bz2
+\item wget \url{ftp://ftp.nluug.nl/mirror/languages/gcc/releases/gcc-4.3.3/gcc-4.3.3.tar.bz2}
+\item wget \url{ftp://ftp.nluug.nl/mirror/languages/gcc/releases/gcc-4.3.3/gcc-core-4.3.3.tar.bz2}
 \item wget ftp://sources.redhat.com/pub/newlib/newlib-1.17.0.tar.gz
 \item tar xjf gcc-4.3.3.tar.bz2
 \item tar xjf gcc-core-4.3.3.tar.bz2
@@ -88,7 +88,7 @@ Setup Development Host:
 \item cd ..
 \end{itemize}
 When you've done all these steps you should try typing this into your terminal: "m32c-elf-gcc --version" and check that it says "m32c-elf-gcc (GCC) 4.3.3" just to be sure.
-\\\\
+
 Now you're good to go, a final note on how get get set up is how to push your code onto the Mulle. Pushing your programs is done in a few steps, first you need to orient your way to the folder containing the program you're pushing in the terminal, then do these steps:
 \begin{itemize}
 \item make clean
@@ -101,13 +101,12 @@ The “make clean” is only needed if you changed something in the system files
 \subsubsection{Further developement}
 
 You will need some sort of device that can share internet through Bluetooth to the Mulle, whether it be a telephone or a personal computer with an USB-dongle. To test COAP protocol, you can download the Copper addon for Firefox. The coap\_init() function in coap.c initializes so that when you receive UDP packets on the Mulle the function coap\_input() is run.
-\\\\
+
 First the coap\_input() function needs to be properly made, since it does nothing useful at this time. What needs to be done is that the function should put all the correct values into a coap struct and based on what values are in each field the function should decide where to send the infomation next for handing. 
-\\\\
+
 A suggestion for handling the COAP payload is by working with EXIP. You create and decode exi files directly on the mulle. EXI-files which have the same structure as XML are interesting for this type of projects since it's light and you can easily write scripts with XML structure.
-\\\\
-You can find out more about EXIP here: http://exip.sourceforge.net/
-\\\\
+
+You can find out more about EXIP here: http://exip.sourceforge.net/ .
 A final suggestion is to finish the debug\_coap\_print() function since it will be very helpful for debugging.
 
 \subsection{Server}

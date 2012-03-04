@@ -60,6 +60,20 @@ This will make it alot easier in the day to day work for everyone, if anybody is
 \subsection{Suggested improvements}
 Without meeting any of our project targets it's hard to suggest improvements except the obvious one to complete what has been started. 
 Instead of going straight at it and try to finish it all as soon as possible some thought process need to be put into the question, what really needs to be finished?
+
+From this projects point of view the first thing to prioritze is to get some communication with the Mulle.
+The Mulle in its current state has alot of bugs which makes it hard to debug, there seems to be alot of "random" bugs occuring when you lest expect them. 
+The code that is finished "should work" but hasn't.
+
+The second priority should be to rethink the servers purpose.
+At the current state the python implementation is very simple and if the only thing you want to do is add new CoAP services which just return some simple results, then keep going with the current server implementation.
+A new service is very easy to add.
+What has been realized at the end of this project is that in the long run it might be better to create a new C server implementation instead.
+The main reason for this is that when you want to implement custom communication protocols such as EXI alot of code is available in C and with a server implementation in C it will be relatively easy to share code between the server and Mulle system.
+
+As the third and last priority, work should be put into the Android system. With the Mulle up and running for testing purposes it should be easy to get going with the android application but without the Mulle the android application isn't worth anything.
+
+
 % TODO: Fortsätt på Mullen
 % TODO: Tänk efter om CoAPy är rätt väg att gå
 % TODO: Skippa android tillsvidare om den inte är viktigare än servern.

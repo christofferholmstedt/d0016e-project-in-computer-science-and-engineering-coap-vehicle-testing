@@ -1,0 +1,9 @@
+#Tue Jan 31 15:56:25 CET 2012
+logcat.view.colsize.Level=29
+eclipse.preferences.version=1
+logcat.view.colsize.Application=143
+logcat.view.colsize.Time=130
+logcat.view.colsize.Tag=107
+logcat.view.colsize.Text=543
+logcat.view.filters.list=name\: 'sysout', tag\: 'System.out', text\: '', pid\: '', app\: '', level\: 'verbose', 
+logcat.view.colsize.PID=50

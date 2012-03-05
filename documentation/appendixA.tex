@@ -20,7 +20,7 @@
 %\item
 %\end{enumerate}
 %\end{enumerate}
-\section{Appendix A - How to build upon our codebase}
+\section{Appendix A - How to build upon the codebase}
 This appendix include information on how to build upon our codebase for the Mulle (C), server code (Python, PHP/HTML5 and C) and Android Mobile phone (Java).
 \subsection{Mulle}
 The Mulle communication via COAP is far from finished and therefore here is a guide how to get started followed by what should be further built. The instruction on how to get started are done in Ubuntu, the versions that were tested are 10.04 and 11.11. Windows or any other OS will not be covered in this guide.
@@ -149,13 +149,13 @@ that with some work can run a service on the CoAP server.
 
 How to create a new webpage:
 
-1. 	Creat a new .php file for page content
+1. 	Create a new .php file for page content
 
-2. 	In the top of the .php file print: <? php include("mulleheader.php"); ?>
+2. 	In the top of the .php file print: $<?$php include("mulleheader.php"); $?>$
 
-3. 	Between < section id ="main" > and < /section > write the page content
+3. 	Between $<$ section id ="main" $>$ and $<$/section $>$ write the page content
 
-4. 	In the bottom of the .php file print <? php include("mullefooter.php"); ?>
+4. 	In the bottom of the .php file print $<?$php include("mullefooter.php"); $?>$
 
 \paragraph{Database}
 
@@ -167,18 +167,18 @@ How to create a new database:
 
 1. 	Open up your MySQL Console and login
 
-2. 	mysql> SHOW DATABASES;
+2. 	mysql$>$ \url{SHOW DATABASES;}
 
-3. 	mysql> CREATE DATABASE the_database_name;
+3. 	mysql$>$ \url{CREATE DATABASE the_database_name;}
 
-4. 	mysql> USE the_database_name
+4. 	mysql$>$ \url{USE the_database_name}
 
-5. 	CREATE TABLE name_of_table (name_first_column_in_table VARCHAR(20), name_second_column_in_table VARCHAR(20), name_date_and_time DATETIME);  
+5. 	\url{CREATE TABLE name_of_table (name_first_column_in_table VARCHAR(20), name_second_column_in_table VARCHAR(20), name_date_and_time DATETIME);}
 	This creates a table with three columns.
 	
-6. 	SHOW TABLES;
+6. 	\url{SHOW TABLES;}
 
-7. 	EXPLAIN name_of_table;
+7. 	\url{EXPLAIN name_of_table;}
 
 \subsection{Android Mobile Phone application}
 
@@ -212,9 +212,9 @@ Another planned feature is the options menu where the application will allow thi
 
 \subsubsection{What exists today}
 
-Today there exists a communication part which allows one to send and recieve CoAP messages. This part uses a library made out of \tttext{jCoAP revision 202b8f8eb7b4, http://code.google.com/p/jcoap/}%s.unger.mobil@gmail.com committer ,	chr.lerche@gmail.com	owner,	nic@nclm.de	owner
+Today there exists a communication part which allows one to send and recieve CoAP messages. This part uses a library made out of \texttt{jCoAP revision 202b8f8eb7b4, http://code.google.com/p/jcoap/}%s.unger.mobil@gmail.com committer ,	chr.lerche@gmail.com	owner,	nic@nclm.de	owner
 to get the CoAP features. This part is not yet a completed project but the features requested for this application is present. The EXI converter is currently not available but is planned to use exificient, 
-which can be found at \tttext{http://exificient.sourceforge.net/}.
+which can be found at \url{http://exificient.sourceforge.net/}.
 
 The GUI is another important part of the application. It is built to be able to controll multiple servers and devices. 
 To make this possible the application has 3 tabs:	%the default thought was to have a checkbox in the server menu to allow one to decide whether a server is being currently used, this idea has however been dropped due to lack of time.
@@ -226,13 +226,13 @@ To make this possible the application has 3 tabs:	%the default thought was to ha
 
 The Options tab does currently not contain anything but should simply allow a user to change things about how the application should work and what and how things should be displayed. 
 
- \includegraphics[scale=0.75]{android-server.png}\caption{The Server tab of the Android application}
-The Server tab shows all the active servers. You can click on the add button in the server menu and a window appears where you write in the name and adress appear, 
+ \includegraphics[scale=0.50]{android-server.png}%\caption{The Server tab of the Android application}
+\\The Server tab shows all the active servers. You can click on the add button in the server menu and a window appears where you write in the name and adress appear, 
 however, the CoAP discovery is not made yet but shouldn't be to far away from completion. The servers then appears in a listview where it's easy to keep track of them.
 In the future this can be complemented with a network discovery of nodes, however, my personal opinion is that it should be possible to manually add an server.
 
- \includegraphics[scale=0.75]{android-device.png}\caption{The device tab of the Android application}
-The Device tab is the latest addition in the GUI and contains the actual services that are available. It contains a custom listadapter that have been tweaked to be able to display children of the interface rowdata.
+\includegraphics[scale=0.50]{android-device.png}%\caption{The device tab of the Android application}
+\\The Device tab is the latest addition in the GUI and contains the actual services that are available. It contains a custom listadapter that have been tweaked to be able to display children of the interface rowdata.
 In it's current state it is possible to add items to this list in the code by calling the NewItem() function with proper parameters. Adding service types if the pre-built service types are not enough is easy. 
 Simply extend the rowdata() interface and create the desired xml for the item, do not however forget to add a typenumber for the NewItem() function to be able to create it. 
 It also allows the children to define for their own what should happen if clicked, updated and so on.

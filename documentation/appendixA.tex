@@ -134,5 +134,51 @@ The server itself should be set to add new services to for operation. What needs
 \item Make services corresponding to the functionality you would like to have for configuration and communication with mulles and android devices, respectively.
 \end{enumerate}
 \subsubsection{Webpages and database}
+ 
+The webpages and database consists of Apache2 which is an web server, MySQL which is a database management system and PHP which is a language for producing dynamic webpages.
+LAMP (Linux), WAMP (Windows) or MAMP (Mac) can be used to build a web server it is an web-platform that consists of Apache, MySQL and PHP.
+
+\paragraph{Webpages}
+
+The webpages are built up using mulleheader.php which contains the header and sidebar, a .php file containing page content and mullefooter.php which contains the footer.
+
+We have built two webpages using this concept; One that shows information from the database and its .php file that hols page content is mulledatabase.php and one consists of 
+a php form to turn on or off a lamp and its .php file that hols page content is mullebuttons.php. The mullebuttons.php also contains a call to a .py file called testsender.py
+that with some work can run a service on the CoAP server.
+
+
+How to create a new webpage:
+
+1. 	Creat a new .php file for page content
+
+2. 	In the top of the .php file print: <? php include("mulleheader.php"); ?>
+
+3. 	Between < section id ="main" > and < /section > write the page content
+
+4. 	In the bottom of the .php file print <? php include("mullefooter.php"); ?>
+
+\paragraph{Database}
+
+We created a MySQL database and named it mulle and to this database we added two tables one that keeps track of communication on server and one that keeps track of connected/active 
+devices. Online you can find many guides on how to add to a LAMP, WAMP or MAPM MySQL database, but down below shows some commands good to know when creating a database.  
+
+
+How to create a new database:
+
+1. 	Open up your MySQL Console and login
+
+2. 	mysql> SHOW DATABASES;
+
+3. 	mysql> CREATE DATABASE the_database_name;
+
+4. 	mysql> USE the_database_name
+
+5. 	CREATE TABLE name_of_table (name_first_column_in_table VARCHAR(20), name_second_column_in_table VARCHAR(20), name_date_and_time DATETIME);  
+	This creates a table with three columns.
+	
+6. 	SHOW TABLES;
+
+7. 	EXPLAIN name_of_table;
+
 \subsection{Android Mobile Phone application}
 

@@ -1,8 +1,11 @@
 
 
 
-# TODO: Have to make import work, need the python files
-# TODO: Have to create the service and 
+# TODO: 
+# Uncomment 
+# make sure the coap python files can be imported
+# Change code to right type of coap package 
+# Change uri_path to service you want to run on the mulle 
 
 
 #import sys
@@ -12,7 +15,7 @@
 #import coapy.link
 #import socket
 
-#msg = coapy.connection.Message(code=coapy.GET, uri_path="ASDF")
+#msg = coapy.connection.Message(code=coapy.GET, uri_path="ASDF") 
 #ep = coapy.connection.EndPoint(address_family=socket.AF_INET)
 #ep.send(msg, ("mulle.csproject.org", 61616))
 

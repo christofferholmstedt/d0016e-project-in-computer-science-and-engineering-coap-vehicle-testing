@@ -23,7 +23,7 @@
 \section{Appendix A - How to build upon the codebase}
 This appendix include information on how to build upon our codebase for the Mulle (C), server code (Python, PHP/HTML5 and C) and Android Mobile phone (Java).
 \subsection{Mulle}
-The Mulle communication via COAP is far from finished and therefore here is a guide how to get started followed by what should be further built. The instruction on how to get started are done in Ubuntu, the versions that were tested are 10.04 and 11.11. Windows or any other OS will not be covered in this guide.
+The Mulle communication via COAP is far from finished and therefore here is a guide how to get started followed by what should be further built. The instruction on how to get started are done in Ubuntu, the versions that were tested are 10.04 and 11.10. Windows or any other OS will not be covered in this guide.
 
 The Mulle software required is all in the Software-PAN-NAP folder which contain necessary libraries and applications. It is assumed that you have acquired this because it's essential for any development.
 
@@ -58,7 +58,7 @@ Setup Development Host:
 
 \noindent When this is done you need to download binutils and install it:
 \begin{itemize}
-\item wget http://ftp.gnu.org/gnu/binutils/binutils-2.19.1.tar.bz2
+\item wget \url{http://ftp.gnu.org/gnu/binutils/binutils-2.19.1.tar.bz2}
 \item tar xjf binutils-2.19.1.tar.bz2
 \item mkdir binutils-obj
 \item cd binutils-obj
@@ -72,7 +72,7 @@ Setup Development Host:
 \begin{itemize}
 \item wget \url{ftp://ftp.nluug.nl/mirror/languages/gcc/releases/gcc-4.3.3/gcc-4.3.3.tar.bz2}
 \item wget \url{ftp://ftp.nluug.nl/mirror/languages/gcc/releases/gcc-4.3.3/gcc-core-4.3.3.tar.bz2}
-\item wget ftp://sources.redhat.com/pub/newlib/newlib-1.17.0.tar.gz
+\item wget \url{ftp://sources.redhat.com/pub/newlib/newlib-1.17.0.tar.gz}
 \item tar xjf gcc-4.3.3.tar.bz2
 \item tar xjf gcc-core-4.3.3.tar.bz2
 \item tar xzf newlib-1.17.0.tar.gz
@@ -126,7 +126,7 @@ The procedure when adding new services is as follows:
 Using an existing service, like "CounterService.py", is highly recommended for understanding how a service should be structured and laid out.
 
 \paragraph{Further development}
-The server itself should be set to add new services to for operation. What needs more work is the incorporation of a few things:
+The server itself should be set to add new services for operation. What needs more work is the incorporation of a few things:
 
 \begin{enumerate}
 \item An actual XML scheme for configuration of mulle nodes. This point is not particular to the server, however.
@@ -142,8 +142,8 @@ LAMP (Linux), WAMP (Windows) or MAMP (Mac) can be used to build a web server it 
 
 The webpages are built up using mulleheader.php which contains the header and sidebar, a .php file containing page content and mullefooter.php which contains the footer.
 
-We have built two webpages using this concept; One that shows information from the database and its .php file that hols page content is mulledatabase.php and one consists of 
-a php form to turn on or off a lamp and its .php file that hols page content is mullebuttons.php. The mullebuttons.php also contains a call to a .py file called testsender.py
+We have built two webpages using this concept; One that shows information from the database and its .php file that holds page content is mulledatabase.php and one consists of 
+a php form to turn on or off a lamp and its .php file that holds page content is mullebuttons.php. The mullebuttons.php also contains a call to a .py file called testsender.py
 that with some work can run a service on the CoAP server.
 
 
@@ -151,11 +151,11 @@ How to create a new webpage:
 
 1. 	Create a new .php file for page content
 
-2. 	In the top of the .php file print: $<?$php include("mulleheader.php"); $?>$
+2. 	In the top of the .php file print:\\$<?$php include("mulleheader.php"); $?>$
 
-3. 	Between $<$ section id ="main" $>$ and $<$/section $>$ write the page content
+3. 	Between \\$<$ section id ="main" $>$ and $<$/section $>$ write the page content
 
-4. 	In the bottom of the .php file print $<?$php include("mullefooter.php"); $?>$
+4. 	In the bottom of the .php file print \\$<?$php include("mullefooter.php"); $?>$
 
 \paragraph{Database}
 
@@ -167,24 +167,22 @@ How to create a new database:
 
 1. 	Open up your MySQL Console and login
 
-2. 	mysql$>$ \url{SHOW DATABASES;}
+2. 	mysql$>$ \texttt{SHOW DATABASES;}
 
-3. 	mysql$>$ \url{CREATE DATABASE the_database_name;}
+3. 	mysql$>$ \texttt{CREATE DATABASE the_database_name;}
 
-4. 	mysql$>$ \url{USE the_database_name}
+4. 	mysql$>$ \texttt{USE the_database_name}
 
-5. 	\url{CREATE TABLE name_of_table (name_first_column_in_table VARCHAR(20), name_second_column_in_table VARCHAR(20), name_date_and_time DATETIME);}
+5. 	\texttt{CREATE TABLE name_of_table (name_first_column_in_table VARCHAR(20), name_second_column_in_table VARCHAR(20), name_date_and_time DATETIME);}
 	This creates a table with three columns.
 	
-6. 	\url{SHOW TABLES;}
+6. 	\texttt{SHOW TABLES;}
 
-7. 	\url{EXPLAIN name_of_table;}
+7. 	\texttt{EXPLAIN name_of_table;}
 
 \subsection{Android Mobile Phone application}
 
-\subsection{Android}
-
-The primary goals for the android applications were;
+The primary goals for the android applications were to;
 %communication goes via a server.
 \begin{itemize}
  \item communicate using CoAP over an UDP connection
@@ -195,25 +193,25 @@ The primary goals for the android applications were;
 
 \subsubsection{The finished product}
 
-The application start off by showing the server menu. One will have to either add a server or use a saved one. 
+The application starts off by showing the server menu. One will have to either add a server or use a saved one. 
 Clicking on a server in the list will cause the application to validate that the server is alive and thereafter it will perform a CoAP discovery on the server. 
 When receiving an answer to the discovery the application will start filling the device menu with devices and their services. The device menu can then be accessed to use the services available.
-The services generally works as follows: The application gets a click on the chosen service, so it sends it message to chosen reciever, whereafter the chosen device either changes something or responds.
+The services generally works as follows: The application gets a click on the chosen service, so it sends it message to the service owner, whereafter the service owner either changes something or responds.
 The device will then have to respond to the application with the updates made, this can be with a confirmation or a whole new CoAP message. This makes the application respond by updating the GUI with the new values.
 
-The pre-built services are generalized to; 
+The pre-built services are generalized to: 
 \begin{itemize}
  \item IsOn, provides an item with a checkbox that is checked if a service is on (for example a lamp). Clicking on this should provide a change on the selected device.
  \item GetValue, provides an item which shows the last value provided. Clicking on the item should provide an update.
  \item SendValue, provides an item which have a textbox where one can send a payload to the device. %ska denna även visa vad värdet är för tillfället? tror det 
 \end{itemize}
 
-Another planned feature is the options menu where the application will allow things like turning EXI encryption on or off. 
+Another planned feature is the options menu where the application will allow things like turning EXI encoding on or off. 
 
 \subsubsection{What exists today}
 
 Today there exists a communication part which allows one to send and recieve CoAP messages. This part uses a library made out of \texttt{jCoAP revision 202b8f8eb7b4, http://code.google.com/p/jcoap/}%s.unger.mobil@gmail.com committer ,	chr.lerche@gmail.com	owner,	nic@nclm.de	owner
-to get the CoAP features. This part is not yet a completed project but the features requested for this application is present. The EXI converter is currently not available but is planned to use exificient, 
+ to get the CoAP features. This part is not yet a completed project but the features requested for this application is present. The EXI converter is currently not available but is planned to use exificient, 
 which can be found at \url{http://exificient.sourceforge.net/}.
 
 The GUI is another important part of the application. It is built to be able to controll multiple servers and devices. 
@@ -227,15 +225,14 @@ To make this possible the application has 3 tabs:	%the default thought was to ha
 The Options tab does currently not contain anything but should simply allow a user to change things about how the application should work and what and how things should be displayed. 
 
  \includegraphics[scale=0.50]{android-server.png}%\caption{The Server tab of the Android application}
-\\The Server tab shows all the active servers. You can click on the add button in the server menu and a window appears where you write in the name and adress appear, 
-however, the CoAP discovery is not made yet but shouldn't be to far away from completion. The servers then appears in a listview where it's easy to keep track of them.
+\\The Server tab shows all the active servers. You can click on the add button in the server menu and a window appears where you write in the name and the adress. The servers then appears in a listview where it's easy to keep track of them.
 In the future this can be complemented with a network discovery of nodes, however, my personal opinion is that it should be possible to manually add an server.
 
 \includegraphics[scale=0.50]{android-device.png}%\caption{The device tab of the Android application}
-\\The Device tab is the latest addition in the GUI and contains the actual services that are available. It contains a custom listadapter that have been tweaked to be able to display children of the interface rowdata.
+\\The Device tab is the latest addition in the GUI and contains the actual services that are available. It contains a custom ArrayAdapter that have been tweaked to be able to display children of the interface rowdata.
 In it's current state it is possible to add items to this list in the code by calling the NewItem() function with proper parameters. Adding service types if the pre-built service types are not enough is easy. 
 Simply extend the rowdata() interface and create the desired xml for the item, do not however forget to add a typenumber for the NewItem() function to be able to create it. 
-It also allows the children to define for their own what should happen if clicked, updated and so on.
+This also allows the children to define for their own what should happen if clicked, updated and so on.
 
 
 

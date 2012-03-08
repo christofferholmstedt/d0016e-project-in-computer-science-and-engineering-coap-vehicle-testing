@@ -129,15 +129,15 @@ public class ServerActivity extends ListActivity {
 		rd = new RowData("Server 3", "Adress 3");
 		data.add(rd);
 
-		// Addknappen
+		// Addbutton
 		Row_button = (TableRow) findViewById(R.id.tableRow1);
 
-		// om man klickar add
+		// when clicking the addbutton
 		Row_button.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-
+				//creates an alertdialog
 				LayoutInflater factory = LayoutInflater.from(ServerActivity.this);
 
 				final View textEntryView = factory.inflate(R.layout.builder_edittext, null);
@@ -145,7 +145,8 @@ public class ServerActivity extends ListActivity {
 				alert.setTitle("Add Server");
 				alert.setMessage("Enter Servername and adress:");
 				alert.setView(textEntryView);
-
+				
+				//When clicking Ok
 				alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
 					public void onClick(DialogInterface dialog,int whichButton) {
@@ -156,7 +157,7 @@ public class ServerActivity extends ListActivity {
 						EditText hostaddr_temp = (EditText) textEntryView.findViewById(R.id.editTextHostadress);
 						String hostaddr;
 
-						// defaults server if none given
+						// defaults our server if none given
 						if (hostaddr_temp.getText().toString().equals("")) {
 							hostaddr = getString(R.string.hostadress);
 						} else {
@@ -168,7 +169,7 @@ public class ServerActivity extends ListActivity {
 						return;
 					}
 				});
-
+				//when clicking Cancel
 				alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						return;
@@ -189,13 +190,15 @@ public class ServerActivity extends ListActivity {
 	public void onListItemClick(ListView parent, View v, int position, long id) {
 		CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
 		RowData row = adapter.getItem(position);
+		//Commented code in this section was used in an debug for contacting a service in the server to try it out
+		
 		//	Builder builder = new AlertDialog.Builder(this);
 
 		// TODO: PINGA SERVERN ELLER NGT COOLT
 		// skicka grejer med msgHandler vid bättre tillfällen och med ngt
 		// användbart i
 		// MessageHandler msgHandler = new MessageHandler();
-		// msgHandler.CoAPGET("mulle.csproject.org", "lol", "temperature");
+		// msgHandler.CoAPGET("mulle.csproject.org", "temperature");
 		// msgHandler = new MessageHandler();
 		// TODO: check if mServeraddr is INETaddr
 		// TODO: HÅRDKODAT
@@ -212,6 +215,9 @@ public class ServerActivity extends ListActivity {
 		//		builder.show();
 	}
 
+	//TODO:
+	//IMPORTANT: Below is testcode for loopers, however, use observer instead!
+	
 	//	/**
 	//	 * Should be executed with handler.post() Experimental async updates using
 	//	 * http
@@ -261,17 +267,16 @@ public class ServerActivity extends ListActivity {
 	private class RowData {
 		protected String mHostname;
 		protected String mServeraddr;
-		//protected String mlol;
 
-		RowData(String hostname, String serveraddr/*, String lol*/) {
+
+		RowData(String hostname, String serveraddr) {
 			mHostname = hostname;
 			mServeraddr = serveraddr;
-			//			mlol = lol;
 		}
 
 		@Override
 		public String toString() {
-			return mHostname + " " + mServeraddr /*+ " " + mlol*/;
+			return mHostname + " " + mServeraddr;
 		}
 	}
 
@@ -296,7 +301,6 @@ public class ServerActivity extends ListActivity {
 			// widgets displayed by each item in your list
 			TextView hostname = null;
 			TextView serveraddr = null;
-			//			TextView lol = null;
 
 			// data from your adapter
 			RowData rowData = getItem(position);
@@ -315,9 +319,6 @@ public class ServerActivity extends ListActivity {
 			serveraddr = holder.getserveraddr();
 			serveraddr.setText(rowData.mServeraddr);
 
-			//			lol = holder.getlol();
-			//			lol.setText(rowData.mlol);
-
 			return convertView;
 		}
 	}
@@ -330,7 +331,6 @@ public class ServerActivity extends ListActivity {
 		private View mRow;
 		private TextView serveraddr = null;
 		private TextView hostname = null;
-		//		private TextView lol = null;
 
 		public ViewHolder(View row) {
 			mRow = row;
@@ -350,12 +350,6 @@ public class ServerActivity extends ListActivity {
 			return hostname;
 		}
 
-		//		public TextView getlol() {
-		//			if (null == lol) {
-		//				lol = (TextView) mRow.findViewById(R.id.lol);
-		//			}
-		//			return lol;
-		//		}
 	}
 
 }

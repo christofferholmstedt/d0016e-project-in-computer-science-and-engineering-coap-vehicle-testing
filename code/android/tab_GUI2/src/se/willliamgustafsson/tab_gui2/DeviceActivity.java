@@ -24,8 +24,11 @@ public class DeviceActivity extends ListActivity {
 	private LayoutInflater mInflater;
 	private Vector<RowData> data;
 	CustomAdapter adapter;
+
+	//If making a new child of rowdata, extend these typenumbers for NewItem()
 	final public int typeIsOn = 1;
 	final public int typeGetValue = 2;
+	final public int typeSendValue = 3; //TODO: doesn't exist
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,34 +48,22 @@ public class DeviceActivity extends ListActivity {
 		 * _________________
 		 * service 2             <-- list item
 		 * _________________
+		 * -----------------
+		 * Server2				 <-- Divider
+		 * -----------------
 		 */
-
-		//ADDING RANDOM STUFF TO GET A VIEW OF HOW IT WILL LOOK
-		//		RowData_IsOn rdio = new RowData_IsOn("service 1", "device 1");
-		//		data.add(rdio);
-		//		rdio = new RowData_IsOn("service 2", "device 1");
-		//		data.add(rdio);
-		//
-		//		RowData_GetValue rdgv = new RowData_GetValue("service 3", "device 1");
-		//		data.add(rdgv);
-		//		rdgv = new RowData_GetValue("service 1", "device 2");
-		//		data.add(rdgv);
-		//
-		//		rdio = new RowData_IsOn("service 2", "device 2");
-		//		data.add(rdio);
-
 
 		adapter = new CustomAdapter(this, R.layout.item_checkbox, R.id.checkbox_text, data);
 
 		setListAdapter(adapter);
 		getListView().setTextFilterEnabled(true);
-		
-		//ADDING RANDOM STUFF
-		newItem("device 1", "service 1", typeIsOn, 0);
-		newItem("device 1", "service 2", typeIsOn, 1);
-		newItem("device 1", "service 3", typeGetValue, 0);
-		newItem("device 2", "service 1", typeGetValue, 1);
-		newItem("device 2", "service 2", typeIsOn, 1);
+
+		//ADDING RANDOM STUFF, Try moving these test-addings to a later place in the code when the getView of the CustomAdapter has been called
+		newItem("device 1", "service 1, IsOn", typeIsOn, 0);
+		newItem("device 1", "service 2, IsOn", typeIsOn, 1);
+		newItem("device 1", "service 3, GetValue, this one shows what happens if you got a real long string", typeGetValue, 0);
+		newItem("device 2", "service 1, GetValue", typeGetValue, 1);
+		newItem("device 2", "service 2, IsOn, this one also shows what happens if you got a real long string", typeIsOn, 1);
 
 	}
 
@@ -82,9 +73,8 @@ public class DeviceActivity extends ListActivity {
 	 * @param servicename
 	 * @param type should be called with predefined values typeIsOn, typeGetValue
 	 * @param Value
-	 * 
 	 */
-	public void newItem(String devicename, String servicename, int type, int Value){
+	public void newItem(String devicename, String servicename, int type, int Value){ //TODO: should Value be a float or string perhaps ?
 
 		RowData rd = null;
 		if (type==typeIsOn)
@@ -95,10 +85,10 @@ public class DeviceActivity extends ListActivity {
 		{System.out.println("no such type available"); return;}
 
 		adapter.add(rd);
-		
-		//GO GO Gadget error :(
-		rd.Update(Value);	
-		//rd.Update calls notifydatasetchanged
+		//rd.Update(Value);	
+		//TODO: rd.Update(); doesn't work since getView() in CustomAdapter gets called when changing tab to this.
+		// Therefore it becomes a nullpointerexception when newItem is called from the onCreate
+		//Solution, make sure this tab is active before calling newItem, perhaps moving the earlier test-addings to a later place than OnCreate should fix that
 	}
 
 	/**
@@ -108,8 +98,12 @@ public class DeviceActivity extends ListActivity {
 	public void onListItemClick(ListView parent, View v, int position, long id) {
 		CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
 		RowData row = adapter.getItem(position);
-		row.Update(1);
-
+		
+		//Only for debug purposes
+		if (row.getlocalValue()==1)
+			row.Update(0);
+		else
+			row.Update(1);
 	}
 
 	/*
@@ -151,7 +145,7 @@ public class DeviceActivity extends ListActivity {
 		public void onClick();		
 		public void Update(int Value);		
 		public void Send();
-		public void onCreate(View row);
+		public void onCreate(View row);//notice: this one get called on alot of random places, like when scrolling, so making if statements with if x == null is a good idea
 		public int getviewtype();
 	}
 
@@ -173,6 +167,7 @@ public class DeviceActivity extends ListActivity {
 		public RowData_IsOn(String servicename, String devicename) {
 			mServiceName = servicename;
 			mDeviceName = devicename;
+			
 		}
 
 		@Override
@@ -190,7 +185,7 @@ public class DeviceActivity extends ListActivity {
 		 * calls Send from current Value
 		 */
 		@Override
-		public void onClick() {	Send(); }
+		public void onClick() {	Send();}
 
 		/**
 		 * Should be called by Onreceive
@@ -203,17 +198,13 @@ public class DeviceActivity extends ListActivity {
 				System.out.println("fel värde");
 				return;
 			}
-			if (Value == 1){
-			//	if (!this.thebox.isChecked())
-					this.thebox.setChecked(true);
-			}
-			else if (Value == 0){
-			//	if( this.thebox.isChecked())
-					this.thebox.setChecked(false);
-			}
+
+			if (Value == 1)
+				this.thebox.setChecked(true); //doesn't work when initiating
+			else if (Value == 0)
+				this.thebox.setChecked(false);
 
 			setlocalValue(Value);
-		//	adapter.notifyDataSetChanged();
 		}
 
 		@Override
@@ -227,15 +218,17 @@ public class DeviceActivity extends ListActivity {
 				this.mRow = row;
 			if (null == Servicename) 
 				this.Servicename = (TextView) mRow.findViewById(R.id.checkbox_text);
-			System.out.println("lol1");
-			if (null == thebox)
-				System.out.println("lol");
-			this.thebox = (CheckBox) mRow.findViewById(R.id.checkBox1);
+
+			
+			if (null == thebox){
+				this.thebox = (CheckBox) mRow.findViewById(R.id.checkBox1);
+				this.thebox.setFocusable(false);
+				this.thebox.setClickable(false);
+			}
 			if (!(mServiceName==null))	
 				Servicename.setText(mServiceName);
 
-			this.thebox.setFocusable(false);
-			this.thebox.setClickable(false);
+
 		}
 
 		@Override
@@ -275,14 +268,11 @@ public class DeviceActivity extends ListActivity {
 		@Override
 		public void Update(int value) {
 			mValue = value;
-
 			this.Value.setText("" + value);
-		//	adapter.notifyDataSetChanged();
 		}
+
 		@Override
-		public void Send() {
-			// TODO Auto-generated method stub
-		}
+		public void Send() {/*TODO: do stuff */}
 
 		@Override
 		public void onCreate(View row) {
@@ -309,7 +299,7 @@ public class DeviceActivity extends ListActivity {
 	/**
 	 * 
 	 * @author Gurr3
-	 * Creates an item into the view, calls the Rowdata onCreate.
+	 * Creates an item into the view, getView calls the Rowdata onCreate.
 	 */
 	private class CustomAdapter extends ArrayAdapter<RowData> {
 
@@ -323,6 +313,10 @@ public class DeviceActivity extends ListActivity {
 			super.notifyDataSetChanged();
 		}
 
+		/**
+		 * Gets called whenever something happens to the View, like scrolling, changing to this tab and so on\\
+		 * is currently used to load the view
+		 */
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			RowData rowData = getItem(position);
@@ -332,7 +326,6 @@ public class DeviceActivity extends ListActivity {
 				convertView = mInflater.inflate(rowData.getviewtype(), null);
 				convertView.setTag(rowData);
 			}
-
 			rowData.onCreate(convertView);
 			return convertView;
 		}

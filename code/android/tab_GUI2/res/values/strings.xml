@@ -2,7 +2,8 @@
 <resources>
 
     <string name="hello">Hello World, You rock!</string>
-    <string name="app_name">The Android Tab Activity</string>
+    <!-- THE NAME OF THE APPLICATION -->
+    <string name="app_name">Android Coap thingy</string>
     
 	<string name="button1">Add</string>
 	
@@ -19,5 +20,5 @@
 	<string name="hostadress">mulle.csproject.org</string>
 	<string name="hostname">Server name</string>
 	<string name="noUnit">"?"</string>
-    
+    <string name="sendingvalue">Value to send</string>
 </resources>

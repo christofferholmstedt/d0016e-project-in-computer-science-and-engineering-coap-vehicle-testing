@@ -17,6 +17,8 @@
     <uses-library android:name="android.jcoap.messages" />
     <uses-library android:name="android.jcoap.tools" /> -->
         
+        
+    <!-- android:screenOrientation="portrait" should be added to ALL <activity tags to disable orientation -->   
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >

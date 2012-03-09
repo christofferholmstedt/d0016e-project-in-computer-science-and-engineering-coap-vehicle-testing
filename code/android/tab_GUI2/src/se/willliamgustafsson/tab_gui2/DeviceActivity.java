@@ -42,14 +42,14 @@ public class DeviceActivity extends ListActivity {
 		/*TODO:  dividers to separate the devices? as:
 
 		 * -----------------
-		 * Server1               <-- Divider
+		 * Device1               <-- Divider
 		 * -----------------
 		 * service 1             <-- list item
 		 * _________________
 		 * service 2             <-- list item
 		 * _________________
 		 * -----------------
-		 * Server2				 <-- Divider
+		 * Device2				 <-- Divider
 		 * -----------------
 		 */
 
@@ -61,9 +61,9 @@ public class DeviceActivity extends ListActivity {
 		//ADDING RANDOM STUFF, Try moving these test-addings to a later place in the code when the getView of the CustomAdapter has been called
 		newItem("device 1", "service 1, IsOn", typeIsOn, 0);
 		newItem("device 1", "service 2, IsOn", typeIsOn, 1);
-		newItem("device 1", "service 3, GetValue, this one shows what happens if you got a real long string", typeGetValue, 0);
-		newItem("device 2", "service 1, GetValue", typeGetValue, 1);
-		newItem("device 2", "service 2, IsOn, this one also shows what happens if you got a real long string", typeIsOn, 1);
+		newItem("device 1", "service 3, GetValue", typeGetValue, 0);
+		newItem("device 2", "service 1", typeGetValue, 1);
+		newItem("device 2", "service 2", typeIsOn, 1);
 
 	}
 
@@ -94,10 +94,12 @@ public class DeviceActivity extends ListActivity {
 	/**
 	 * @author Gurr3
 	 * When clicking on the list, this code runs. Planned use is to call the active Rowdata's onClick method.
+	 * should NOT change the Value or anything on the listitem, these should change with a onRecieve call
 	 */
 	public void onListItemClick(ListView parent, View v, int position, long id) {
 		CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
 		RowData row = adapter.getItem(position);
+		//row.onClick();
 		
 		//Only for debug purposes
 		if (row.getlocalValue()==1)

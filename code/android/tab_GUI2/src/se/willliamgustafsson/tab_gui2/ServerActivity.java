@@ -105,7 +105,7 @@ public class ServerActivity extends ListActivity {
 	MessageHandler msgHandler = new MessageHandler(this);
 
 	public ArrayList<String> message;
-	public String setthis = "lol";
+	public String setthis = "lol"; //part of a test to get messagehandlers incoming message, can be removed
 	Handler handler;
 
 
@@ -158,6 +158,7 @@ public class ServerActivity extends ListActivity {
 						String hostaddr;
 
 						// defaults our server if none given
+						// the gray thing in the row is given in the xml
 						if (hostaddr_temp.getText().toString().equals("")) {
 							hostaddr = getString(R.string.hostadress);
 						} else {
@@ -194,14 +195,12 @@ public class ServerActivity extends ListActivity {
 		
 		//	Builder builder = new AlertDialog.Builder(this);
 
-		// TODO: PINGA SERVERN ELLER NGT COOLT
 		// skicka grejer med msgHandler vid bättre tillfällen och med ngt
 		// användbart i
 		// MessageHandler msgHandler = new MessageHandler();
 		// msgHandler.CoAPGET("mulle.csproject.org", "temperature");
 		// msgHandler = new MessageHandler();
 		// TODO: check if mServeraddr is INETaddr
-		// TODO: HÅRDKODAT
 		// TODO: msgHandler.CoAPGET(row.mServeraddr, "", "GetActiveDevices");
 
 		msgHandler.CoAPGET(row.mServeraddr, "", "counterservice");

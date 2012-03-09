@@ -71,6 +71,7 @@ public class MessageHandler implements CoapClient {
 			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
+			System.out.println("unknown host error: "+ e);
 			e.printStackTrace();
 		}
 
@@ -91,17 +92,20 @@ public class MessageHandler implements CoapClient {
 		 */
 		temp= response.getPayload();
 		this.srvActivity.setthis = new String(response.getPayload());
+		
+		
+		//TODO: handler and looper wasn't what we wanted, use observer instead
 		//Handler srvActivity = new Handler();
 		
 		//Call the UpdateValues()
-		this.srvActivity.handler.post(new Runnable() {
-			@Override
-			public void run() {
+		//this.srvActivity.handler.post(new Runnable() {
+			//@Override
+			//public void run() {
 			
 			
 				// this will be done in the Pipeline Thread
-			}
-		});
+			//}
+		//});
 		
 		//TODO: Figure out where this is supposed to return
 		//return response.getPayload().toString();

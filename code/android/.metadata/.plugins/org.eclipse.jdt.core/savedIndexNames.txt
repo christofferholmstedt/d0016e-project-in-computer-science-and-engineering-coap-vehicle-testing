@@ -1,3 +1,0 @@
-INDEX VERSION 1.126+C:\Users\Marcus\Documents\LTU\D0016E\vehicletesting\code\android\.metadata\.plugins\org.eclipse.jdt.core
-1944224169.index
-373438666.index

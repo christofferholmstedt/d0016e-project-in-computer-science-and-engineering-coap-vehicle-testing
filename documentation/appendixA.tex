@@ -191,27 +191,27 @@ The primary goals for the android applications were to;
 \end{itemize}
 % UNDERSÖK OM MER SKA IN HÄR
 
-\subsubsection{The finished product}
+\subsubsection{The goal of the finished product}
 
 The application starts off by showing the server menu. One will have to either add a server or use a saved one. 
 Clicking on a server in the list will cause the application to validate that the server is alive and thereafter it will perform a CoAP discovery on the server. 
 When receiving an answer to the discovery the application will start filling the device menu with devices and their services. The device menu can then be accessed to use the services available.
-The services generally works as follows: The application gets a click on the chosen service, so it sends it message to the service owner, whereafter the service owner either changes something or responds.
-The device will then have to respond to the application with the updates made, this can be with a confirmation or a whole new CoAP message. This makes the application respond by updating the GUI with the new values.
+The services generally works as follows: The application gets a click on the chosen service, so it sends its message to the service owner, whereafter the services device either changes something or responds.
+The service owner will then have to respond to the Android application with the updates made, this can be with a confirmation or a whole new CoAP message. This makes the application respond by updating the GUI with the new values.\smallskip
 
 The pre-built services are generalized to: 
 \begin{itemize}
- \item IsOn, provides an item with a checkbox that is checked if a service is on (for example a lamp). Clicking on this should provide a change on the selected device.
- \item GetValue, provides an item which shows the last value provided. Clicking on the item should provide an update.
- \item SendValue, provides an item which have a textbox where one can send a payload to the device. %ska denna även visa vad värdet är för tillfället? tror det 
+\item IsOn, provides an item with a checkbox that is checked if a service is on (for example a lamp). Clicking on this should provide a change on the selected device.
+\item GetValue, provides an item which shows the last value provided. Clicking on the item should provide an update.
+\item SendValue, provides an item which have a view of the current value and a textbox where one can send a payload to the device.
 \end{itemize}
 
-Another planned feature is the options menu where the application will allow things like turning EXI encoding on or off. 
+Another feature of the finshed product would be the options menu where the application will allow things like turning EXI encoding on or off. 
 
 \subsubsection{What exists today}
 
-Today there exists a communication part which allows one to send and recieve CoAP messages. This part uses a library made out of \texttt{jCoAP revision 202b8f8eb7b4, http://code.google.com/p/jcoap/}%s.unger.mobil@gmail.com committer ,	chr.lerche@gmail.com	owner,	nic@nclm.de	owner
- to get the CoAP features. This part is not yet a completed project but the features requested for this application is present. The EXI converter is currently not available but is planned to use exificient, 
+Today there exists a communication part which allows one to send and recieve CoAP messages. This part uses a library made out of \texttt{jCoAP revision 202b8f8eb7b4, http://code.google.com/p/jcoap/}%s.unger.mobil@gmail.com committer ,	chr.lerche@gmail.com	owner,	nic@nclm.de	owner 
+to get the CoAP features. The reason for making this a library is to make a Java project compile in the Android project without complications. The jCoAP project is not yet finished but the features requested for this application is present. The EXI converter is currently not available but is planned to use exificient, 
 which can be found at \url{http://exificient.sourceforge.net/}.
 
 The GUI is another important part of the application. It is built to be able to controll multiple servers and devices. 
@@ -224,18 +224,15 @@ To make this possible the application has 3 tabs:	%the default thought was to ha
 
 The Options tab does currently not contain anything but should simply allow a user to change things about how the application should work and what and how things should be displayed. 
 
- \includegraphics[scale=0.50]{android-server.png}%\caption{The Server tab of the Android application}
-\\The Server tab shows all the active servers. You can click on the add button in the server menu and a window appears where you write in the name and the adress. The servers then appears in a listview where it's easy to keep track of them.
-In the future this can be complemented with a network discovery of nodes, however, my personal opinion is that it should be possible to manually add an server.
+\begin{center}
+ \includegraphics[scale=0.25]{android-server.png}%\caption{The Server tab of the Android application}
+\end{center}
+ \\The Server tab shows all the active servers. You can click on the add button in the server menu and a window appears where you write in the name and adress appear. The servers then appears in a listview where it's easy to keep track of them. In the future this can be complemented with a network discovery of nodes, however, my personal opinion is that it should be possible to manually add an server.
 
-\includegraphics[scale=0.50]{android-device.png}%\caption{The device tab of the Android application}
+\begin{center}
+\includegraphics[scale=0.25]{android-device.png}%\caption{The device tab of the Android application}
+\end{center}
 \\The Device tab is the latest addition in the GUI and contains the actual services that are available. It contains a custom ArrayAdapter that have been tweaked to be able to display children of the interface rowdata.
-In it's current state it is possible to add items to this list in the code by calling the NewItem() function with proper parameters. Adding service types if the pre-built service types are not enough is easy. 
+In it's current state it is possible to add items to this list in the code by calling the NewItem() function with proper parameters. If the prebuild service types would not suffice it's relatively easy to add new ones.
 Simply extend the rowdata() interface and create the desired xml for the item, do not however forget to add a typenumber for the NewItem() function to be able to create it. 
 This also allows the children to define for their own what should happen if clicked, updated and so on.
-
-
-
-
-
-

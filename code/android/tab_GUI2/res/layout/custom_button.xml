@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="50dp" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:contentDescription="@string/fulknapp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ful_add_knapp" />
+
+    <!-- relativ layout för att flytta, eller hårdkoda med margin -->
+
+    <TextView
+        android:id="@+id/Addtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingLeft="30dp"
+        android:text="@string/add"
+        android:textSize="20dp" />
+
+    <!--
+               <Button
+                android:id="@+id/addbutton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:clickable="true"
+                android:text="@string/add" />
+    -->
+
+</RelativeLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="150dp" >
+
+    <TextView
+        android:id="@+id/item_gv_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="@string/no_data" />
+    
+    <TextView
+        android:id="@+id/item_gv_theunit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="@string/noUnit" />
+
+    <TextView
+        android:id="@+id/item_gv_thevalue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:layout_toLeftOf="@+id/item_gv_theunit"
+        android:text="@string/no_data2" />
+
+</RelativeLayout>

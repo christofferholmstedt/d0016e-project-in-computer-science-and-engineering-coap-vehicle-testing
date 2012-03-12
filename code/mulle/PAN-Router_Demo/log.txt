@@ -1,0 +1,1 @@
+../mulle_term/mulle_term /dev/ttyUSB1

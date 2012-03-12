@@ -1,0 +1,1 @@
+No low-power optimizations: approx 10 mA

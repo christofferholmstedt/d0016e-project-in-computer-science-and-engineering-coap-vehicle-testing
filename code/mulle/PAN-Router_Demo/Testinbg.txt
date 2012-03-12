@@ -1,0 +1,140 @@
+Test 1:
+Start Router-Mulle, let in connect to SonyEricsson K810i and establish an Internet connection. Read the IP address and start a ping from a computer. Let the ping run for
+one (1) hour.
+
+
+debug output:
+jench@t60p:~/Dropbox/work/Mulle/Software-PAN-NAP/Applications/PAN-Router_Demo$ make debug
+../mulle_term/mulle_term /dev/ttyUSB0
+Found Atmel 16MBit Dataflash.
+System configuration read
+Nr. of reboots: 102
+
+Eistec platform Mulle v3/v4 started.
+
+Date: 1990-0-0 0:14:7
+using 900 s sample interval with 1 samples per file
+Starting main loop...
+
+INT #4
+TCP/IP initialized.
+No prefered AP available, scanning ...
+Bluetooth initialized.
+bt_ip_start
+Successful HCI_RESET.
+Successful HCI_W_DEFAULT_LINK_POLICY.
+Successful HCI_READ_BUFFER_SIZE.
+LOCAL_BDADDR: 00:a0:96:28:d8:3c
+Successful HCI_READ_BD_ADDR.
+Successful HCI_SET_EVENT_FILTER.
+Successful HCI_WRITE_COD.
+Successful HCI_CHANGE_LOCAL_NAME.
+Successful HCI_WRITE_AUTHENTICATION_ENABLE.
+Successful HCI_WRITE_PAGE_TIMEOUT.
+
+Initialization done.
+Discover other Bluetooth devices.
+Successful Inquiry
+Initiate L2CAP connection
+ires->psrm 1
+ ires->psm 0
+ ires->co 28961
+ires->bdaddr 0x0:0x1e:0x45:0x9:0xd2:0xce
+inquiry_complete: Allocated L2CAP pcb=0x3d62
+Successful HCI_W_LINK_POLICY
+l2cap_connected: L2CAP connected pcb=3e2d, pcb->state = 5
+l2cap_connected: SDP L2CAP configured. Result = 0
+l2cap_connected: Using NAP profile
+sdp_attributes_recv:
+sdp_attributes_recv: NAP channel: 15
+l2cap_disconnected_cfm: pcb=0x3e2d
+l2cap_connected: L2CAP connected pcb=3e60, pcb->state = 5
+l2cap_connected: BNEP L2CAP configured. Result = 0
+netif: IP address of interface  set to 0.0.0.0
+netif: netmask of interface  set to 0.0.0.0
+netif: GW address of interface  set to 0.0.0.0
+netif: added interface PA IP addr 0.0.0.0HCI initialization failed!
+ netmask 0.0.0.0HCI initialization failed!
+ gw 0.0.0.0HCI initialization failed!
+
+bnep_accept_ext(0):
+BNEP connection OK
+netif: setting default interface PA
+netif_set_ipaddr: netif address being changed
+netif: IP address of interface PA set to 95.198.49.151
+netif: netmask of interface PA set to 255.255.255.240
+netif: GW address of interface PA set to 95.198.49.149
+pan_netif_dhcp: (IP-address - 95.198.49.151)
+pan_netif_dhcp: (GW-address - 95.198.49.149)
+Add user specific code here, such as sending sensor data etc
+Starting NTP client
+SDP initialized
+netif_set_ipaddr: netif address being changed
+netif: IP address of interface  set to 172.16.0.1
+netif: netmask of interface  set to 255.255.255.0
+netif: GW address of interface  set to 172.16.0.1
+netif: added interface PA IP addr 172.16.0.1HCI initialization failed!
+ netmask 255.255.255.0HCI initialization failed!
+ gw 172.16.0.1HCI initialization failed!
+
+PAN initialized - IP address: 172.16.0.1 / 255.255.255.0
+Successful HCI_WRITE_SCAN_ENABLE.
+Successful HCI_SET_EVENT_FILTER.
+Successful HCI_WRITE_SCAN_ENABLE.
+95.198.49.151
+Date is: 2011- 9-16  8:30:47
+
+Real-time Clock updated
+Starting NTP client
+Date is: 2011- 9-16  8:30:50
+
+Real-time Clock updated
+95.198.49.151
+netif: IP address of interface PA set to 95.198.49.151
+netif: netmask of interface PA set to 255.255.255.240
+netif: GW address of interface PA set to 95.198.49.149
+95.198.49.151
+netif: IP address of interface PA set to 95.198.49.151
+netif: netmask of interface PA set to 255.255.255.240
+netif: GW address of interface PA set to 95.198.49.149
+95.198.49.151
+95.198.49.151
+netif: IP address of interface PA set to 95.198.49.151
+netif: netmask of interface PA set to 255.255.255.240
+netif: GW address of interface PA set to 95.198.49.149
+95.198.49.151
+95.198.49.151
+netif: IP address of interface PA set to 95.198.49.151
+netif: netmask of interface PA set to 255.255.255.240
+netif: GW address of interface PA set to 95.198.49.149
+95.198.49.151
+netif: IP address of interface PA set to 95.198.49.151
+netif: netmask of interface PA set to 255.255.255.240
+netif: GW address of interface PA set to 95.198.49.149
+95.198.49.151
+netif: IP address of interface PA set to 95.198.49.151
+netif: netmask of interface PA set to 255.255.255.240
+netif: GW address of interface PA set to 95.198.49.149
+95.198.49.151
+95.198.49.151
+
+
+Results: no disconnect should occur! No meory leak, nor any reboot!
+  64 bytes from 95.198.49.151: icmp_seq=1198 ttl=40 time=538 ms
+  64 bytes from 95.198.49.151: icmp_seq=1199 ttl=40 time=429 ms
+  64 bytes from 95.198.49.151: icmp_seq=1200 ttl=40 time=569 ms
+  ^C
+  --- 95.198.49.151 ping statistics ---
+  1200 packets transmitted, 1198 received, 0% packet loss, time 1199805ms
+  rtt min/avg/max/mdev = 378.718/524.360/7763.834/487.659 ms, pipe 8
+
+Notes: if no traffic is flowing,  DHCP disconnects for some reason.
+
+Test 2:
+Start Router-Mulle, let in connect to SonyEricsson K810i and establish an Internet connection. Read the IP address and start a ping from a computer. 
+Let the ping run for one hour.
+Also at start, use a computer with Linux/Windows and have it connect to the router Mulle's PAN-NAP service. BNEP and DHCP should work. Then start a ping from the computer
+
+Test 3:
+Start Router-Mulle, let in connect to SonyEricsson K810i and establish an Internet connection. Use another PAN-U Mulle and have it connect to the router Mulle.
+BNEP and DHCP must work fine. Then have the PAN-U Mulle use OLPv2 or httpc to transmit sensor data to the Internet.
